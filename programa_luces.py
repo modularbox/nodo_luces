@@ -91,7 +91,7 @@ def get_light_state_from_api(data):
         return None
     
     # Guardar las luces
-    luces = Luces(data.get('encender'), data.get('apagar'))
+    luces = Luces(data.get('encender'), lugar)
     return luces
 
 #Iniciar el programa

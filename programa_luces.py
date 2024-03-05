@@ -14,6 +14,7 @@ bsq_fixture_model.setup_fixture(custom_fixture)
 
 # Guardar configuraciones anteriores
 guardar_configuracion_luces = None
+guardar_configuracion_programa_luces = []
 luces_encendidas = False
 
 # Funciones para el control de los canales
@@ -77,7 +78,7 @@ def verificar_horarios(horarios):
 # ------------------ Termina la programacion de las luces en horas ------------------
 
 def get_light_state_from_api(data):
-    global guardar_configuracion_luces
+    global guardar_configuracion_programa_luces
     global luces_encendidas
 
     # Verificar el horario para encender las luces o apagarlas
@@ -89,10 +90,11 @@ def get_light_state_from_api(data):
         if luces_encendidas:
             luces_encendidas = False
             off_all_channels()
-        return None
-    
-    # Guardar las luces
-    return Luces(data.get('encender'))
+    if guardar_configuracion_programa_luces != data.get('encender'):
+        guardar_configuracion_programa_luces = data.get('encender')
+        # Guardar las luces
+        return Luces(data.get('encender'))
+    return None
     
 #Iniciar el programa
 def init_luces(response, lugar):
@@ -101,6 +103,7 @@ def init_luces(response, lugar):
     else:
         print("Traer desde la api")
         luces = get_light_state_from_api(response)
+    print(luces)
     if luces != None: 
         ciclo_luces(luces.encender)
 """

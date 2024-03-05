@@ -2,13 +2,13 @@ import threading
 import time
 import socketio
 import sys
+import programa_luces
 from enum import Enum
 
 # Definir una enumeración simple
 class Programas(Enum):
     PROGRAMA = 1
     PROGRAMA_POR_TIEMPO = 2
-    NONE = 3
 
 # Crea el evento
 theared_program = threading.Event()
@@ -21,7 +21,7 @@ class TimedEventThread(threading.Thread):
         super().__init__()
         self.interval = interval
         self.stopped = event
-        self.programa_execute = Programas.NONE
+        self.programa_execute = Programas.PROGRAMA
         self.programa = programa
         self.programa_por_tiempo = programa_por_tiempo
         self.request_programa = request_programa or {}
@@ -61,31 +61,32 @@ if len(sys.argv) > 1:
 
 # Ejecutar el programa
 def ejecutar_programa(request):
+    global lugar
     print("Programa ejecutandose")
-    luces_sockets.init_luces(request)
+    programa_luces.init_luces(request, lugar)
 
 # Ejecutar el programa
 def ejecutar_programa_por_tiempo(request):
     print("Ejecutar programa por tiempo")
-    luces_sockets.programa_por_tiempo(request)
+    programa_luces.programa_por_tiempo(request)
     
 # Función para programar la ejecución del programa después de 10 segundos
 def programa_ejecucion(request):
     global theared
     theared.changeRequestPrograma(request)
     if theared.programa_execute != Programas.PROGRAMA_POR_TIEMPO:
-        luces_sockets.off_all_channels()
+        programa_luces.off_all_channels()
         theared.changePrograma(Programas.PROGRAMA)
     
 # Función para programar la ejecución del programa después de 10 segundos
 def programa_por_tiempo_ejecucion(request):
     global theared
     theared.changeRequestProgramaPorTiempo(request)
-    luces_sockets.guardar_configuracion_luces = None
-    luces_sockets.off_all_channels()
+    programa_luces.guardar_configuracion_luces = None
+    programa_luces.off_all_channels()
     theared.changePrograma(Programas.PROGRAMA_POR_TIEMPO)
     time.sleep(request.get('time'))
-    luces_sockets.off_all_channels()
+    programa_luces.off_all_channels()
     theared.changePrograma(Programas.PROGRAMA)
 
 # Funcion de los sockets

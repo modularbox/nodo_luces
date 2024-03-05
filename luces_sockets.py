@@ -9,6 +9,7 @@ import requests
 def hay_internet():
     try:
         response = requests.get("http://8.8.8.8", timeout=5)
+        print(response)
         return response.status_code == 200
     except requests.ConnectionError:
         return False
@@ -116,8 +117,9 @@ if __name__ == "__main__":
     verificar_conexion_internet = True
     while verificar_conexion_internet:
         if hay_internet():
-            verificar_conexion_internet = False
+            break
         time.sleep(3)
+    print("Paso")
     # Iniciar los sockets
     sio.connect('http://api.conectateriolobos.es:3005')
     # Crea el hilo para el evento

@@ -80,6 +80,10 @@ def get_light_state_from_api(data, lugar):
     global guardar_configuracion_luces
     global luces_encendidas
 
+    print(data.get('encender'))
+    print(data)
+    if data.get('encender') == None:
+        return Luces(ProgramaHardcode(lugar).get_luces_lugar())
     # Verificar el horario para encender las luces o apagarlas
     if verificar_horarios(data.get('horarios')):
         if not luces_encendidas:
@@ -92,10 +96,7 @@ def get_light_state_from_api(data, lugar):
         return None
     
     # Guardar las luces
-    if data.get('encender') == None:
-        return Luces(ProgramaHardcode(lugar).get_luces_lugar())
-    else:
-        return Luces(data.get('encender'), lugar)
+    return Luces(data.get('encender'), lugar)
     
 #Iniciar el programa
 def init_luces(response, lugar):

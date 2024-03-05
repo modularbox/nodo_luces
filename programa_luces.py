@@ -99,6 +99,7 @@ def init_luces(response, lugar):
     if response == {}:
         luces = get_light_state_from_api(ProgramaHardcode(lugar).get_luces_lugar())
     else:
+        print("Traer desde la api")
         luces = get_light_state_from_api(response)
     if luces != None: 
         ciclo_luces(luces.encender)

@@ -8,7 +8,7 @@ import requests
 # Verificar si hay internet
 def hay_internet():
     try:
-        response = requests.get("http://8.8.8.8", timeout=5)
+        response = requests.get("http://www.google.com", timeout=5)
         print(response)
         return response.status_code == 200
     except requests.ConnectionError:

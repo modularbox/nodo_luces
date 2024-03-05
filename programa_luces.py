@@ -97,7 +97,7 @@ def get_light_state_from_api(data):
 #Iniciar el programa
 def init_luces(response, lugar):
     if response == {}:
-        luces = Luces(ProgramaHardcode(lugar).get_luces_lugar())
+        luces = get_light_state_from_api(ProgramaHardcode(lugar).get_luces_lugar())
     else:
         luces = get_light_state_from_api(response)
     if luces != None: 

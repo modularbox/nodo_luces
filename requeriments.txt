@@ -1,2 +1,2 @@
 PyDMXControl==2.0.0
-socketio==0.2.1
+python-socketio==5.11.1

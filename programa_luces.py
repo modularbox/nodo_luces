@@ -84,6 +84,8 @@ def get_light_state_from_api(data, lugar):
         if not luces_encendidas:
             luces_encendidas = True 
             return Luces(ProgramaHardcode(lugar).get_luces_lugar())
+        return None
+            
     # Verificar el horario para encender las luces o apagarlas
     if verificar_horarios(data.get('horarios')):
         if not luces_encendidas:

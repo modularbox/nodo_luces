@@ -31,3 +31,4 @@ WantedBy=multi-user.target
 systemctl daemon-reload
 systemctl enable auto-restart.service
 systemctl start auto-restart.service
+systemctl status auto-restart.service

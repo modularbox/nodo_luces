@@ -37,6 +37,7 @@ class TimedEventThread(threading.Thread):
         self.request_programa_por_tiempo = request_programa_por_tiempo or {}
 
     def run(self):
+        print("Inicio de programa")
         while not self.stopped.wait(self.interval):
             if self.programa_execute == Programas.PROGRAMA:
                 self.programa(self.request_programa)
@@ -69,12 +70,10 @@ if len(sys.argv) > 1:
 # Ejecutar el programa
 def ejecutar_programa(request):
     global lugar
-    print("Programa ejecutandose")
     programa_luces.init_luces(request, lugar)
 
 # Ejecutar el programa
 def ejecutar_programa_por_tiempo(request):
-    print("Ejecutar programa por tiempo")
     programa_luces.programa_por_tiempo(request)
     
 # Función para programar la ejecución del programa después de 10 segundos

@@ -3,6 +3,7 @@ from PyDMXControl.controllers import OpenDMXController
 from PyDMXControl.profiles.Generic import Custom
 from fixture_model import FixtureModel
 from luces_json import Luces
+from programa_hardcode import ProgramaHardcode
 # Cargar luces desde JSON
 # ------------------ Todo el codigo de las luces ------------------
 dmx = OpenDMXController()
@@ -91,9 +92,11 @@ def get_light_state_from_api(data, lugar):
         return None
     
     # Guardar las luces
-    luces = Luces(data.get('encender'), lugar)
-    return luces
-
+    if data.get('encender') == None:
+        return Luces(ProgramaHardcode(lugar).get_luces_lugar())
+    else:
+        return Luces(data.get('encender'), lugar)
+    
 #Iniciar el programa
 def init_luces(response, lugar):
     luces = get_light_state_from_api(response, lugar)

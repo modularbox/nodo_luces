@@ -76,16 +76,10 @@ def verificar_horarios(horarios):
         return False
 # ------------------ Termina la programacion de las luces en horas ------------------
 
-def get_light_state_from_api(data, lugar):
+def get_light_state_from_api(data):
     global guardar_configuracion_luces
     global luces_encendidas
 
-    if data.get('encender') == None:
-        if not luces_encendidas:
-            luces_encendidas = True 
-            return Luces(ProgramaHardcode(lugar).get_luces_lugar())
-        return None
-            
     # Verificar el horario para encender las luces o apagarlas
     if verificar_horarios(data.get('horarios')):
         if not luces_encendidas:
@@ -98,11 +92,14 @@ def get_light_state_from_api(data, lugar):
         return None
     
     # Guardar las luces
-    return Luces(data.get('encender'), lugar)
+    return Luces(data.get('encender'))
     
 #Iniciar el programa
 def init_luces(response, lugar):
-    luces = get_light_state_from_api(response, lugar)
+    if response == {}:
+        luces = Luces(ProgramaHardcode(lugar).get_luces_lugar())
+    else:
+        luces = get_light_state_from_api(response)
     if luces != None: 
         ciclo_luces(luces.encender)
 """

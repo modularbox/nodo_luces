@@ -4,6 +4,14 @@ import socketio
 import sys
 import programa_luces
 from enum import Enum
+import requests
+# Verificar si hay internet
+def hay_internet():
+    try:
+        response = requests.get("http://8.8.8.8", timeout=5)
+        return response.status_code == 200
+    except requests.ConnectionError:
+        return False
 
 # Definir una enumeración simple
 class Programas(Enum):
@@ -105,8 +113,12 @@ def disconnect():
     print('disconnected from server')
 
 if __name__ == "__main__":
+    verificar_conexion_internet = True
+    while verificar_conexion_internet:
+        if hay_internet():
+            verificar_conexion_internet = False
+        time.sleep(3)
     # Iniciar los sockets
-    # sio.connect('http://192.168.1.136:3005')
     sio.connect('http://api.conectateriolobos.es:3005')
     # Crea el hilo para el evento
     theared = TimedEventThread(2, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo)

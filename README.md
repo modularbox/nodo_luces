@@ -17,7 +17,7 @@ echo "[Unit]
 Description=Iniciar luces
 
 [Service]
-ExecStart=/usr/bin/python3 /luces/nodo_luces/luces_sockets.py lugar
+ExecStart=/usr/bin/python3 /nodo_luces/luces_sockets.py lugar
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
@@ -32,3 +32,7 @@ systemctl daemon-reload
 systemctl enable auto-restart.service
 systemctl start auto-restart.service
 systemctl status auto-restart.service
+/usr/bin/python3 /nodo_luces/luces_sockets.py ermita
+
+
+Despues ir a la carpeta /usr/local/lib/python3.10/dist-packages/PyDMXControl/web/_routes.py

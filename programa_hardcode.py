@@ -19,8 +19,8 @@ class ProgramaHardcode():
                     {"horario_inicio": "00:00:00", "horario_fin": "23:59:00"},
                 ],
                 "encender": 
-                [2, 10, 17, 18, 26, 31, 36, 41, 46, 50,
-                 51, 59, 67, 75, 83, 91, 99]
+                [2, 10, 17, 18, 19, 20, 26, 31, 36, 41, 46, 50,
+                 51, 52, 53,  59, 67, 75, 83, 91, 99]
                 }
         if(self.lugar == 'cruz_bendita'):
             return {

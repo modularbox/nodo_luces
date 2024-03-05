@@ -84,15 +84,15 @@ def get_light_state_from_api(data):
     if verificar_horarios(data.get('horarios')):
         if not luces_encendidas:
             off_all_channels()
-            # Guardar las luces
-            luces_encendidas = True 
-            return Luces(data.get('encender'))
+        luces_encendidas = True 
     else:
         if luces_encendidas:
             luces_encendidas = False
             off_all_channels()
-    return None
+        return None
     
+    # Guardar las luces
+    return Luces(data.get('encender'))
     
 #Iniciar el programa
 def init_luces(response, lugar):

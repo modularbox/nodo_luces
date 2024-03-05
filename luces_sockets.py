@@ -106,7 +106,8 @@ def disconnect():
 
 if __name__ == "__main__":
     # Iniciar los sockets
-    sio.connect('http://192.168.1.136:3005')
+    # sio.connect('http://192.168.1.136:3005')
+    sio.connect('http://api.conectate.es:3005')
     # Crea el hilo para el evento
     theared = TimedEventThread(1, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo)
     # Iniciar Evento

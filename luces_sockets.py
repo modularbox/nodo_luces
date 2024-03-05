@@ -1,9 +1,7 @@
-
 import threading
 import time
 import socketio
 import sys
-import luces_sockets
 from enum import Enum
 
 # Definir una enumeración simple

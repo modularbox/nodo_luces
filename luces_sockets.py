@@ -33,8 +33,6 @@ class TimedEventThread(threading.Thread):
                 self.programa(self.request_programa)
             if self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:
                 self.programa_por_tiempo(self.request_programa_por_tiempo)
-            if self.programa_execute == Programas.NONE:
-                print("No hay ningun Programa")
     
     def changePrograma(self, nuevo_programa):
         self.programa_execute = nuevo_programa

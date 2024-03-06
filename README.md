@@ -27,12 +27,29 @@ SyslogIdentifier=programa
 WantedBy=multi-user.target
 " > /etc/systemd/system/auto-restart.service
 
-# Programar el python para que se ejecute al inicio
+Programar el python para que se ejecute al inicio
 systemctl daemon-reload
 systemctl enable auto-restart.service
 systemctl start auto-restart.service
 systemctl status auto-restart.service
 /usr/bin/python3 /nodo_luces/luces_sockets.py ermita
 
+Comando para ver los logs
+journalctl -u auto-restart.service
 
-Despues ir a la carpeta /usr/local/lib/python3.10/dist-packages/PyDMXControl/web/_routes.py
+Comando para borrar los logs 
+journalctl --vacuum-size=1M -u auto-restart.service
+
+echo "[Unit]
+Description=Iniciar luces
+
+[Service]
+ExecStart=/usr/bin/python3 /nodo_luces/luces_sockets.py desaguadero
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=programa
+
+[Install]
+WantedBy=multi-user.target
+" > /etc/systemd/system/auto-restart.service

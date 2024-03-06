@@ -4,12 +4,14 @@ from PyDMXControl.profiles.Generic import Custom
 from fixture_model import FixtureModel
 # Cargar luces desde JSON
 # ------------------ Todo el codigo de las luces ------------------
-dmx = OpenDMXController()
-# Big square fixture model
-bsq_fixture_model = FixtureModel("DRGBWSEP")
-custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
-bsq_fixture_model.setup_fixture(custom_fixture)
-
+try:
+    dmx = OpenDMXController()
+    # Big square fixture model
+    bsq_fixture_model = FixtureModel("DRGBWSEP")
+    custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
+    bsq_fixture_model.setup_fixture(custom_fixture)
+except Exception as e:
+    print('error', e)
 # Guardar configuraciones anteriores
 guardar_configuracion_programa_por_tiempo_canales = []
 guardar_configuracion_programa_canales = []
@@ -20,8 +22,6 @@ def encender_luz(channel):
     custom_fixture.dim(255, 0, channel - 1)
 def encender_con_value_luz(value, channel):
     custom_fixture.dim(value, 0, channel - 1)
-def apagar_luz(channel):
-    custom_fixture.dim(0, 0, channel - 1)
 def off_all_channels():
     print("Apagar todos los canales")
     for i in range(500):
@@ -98,7 +98,7 @@ def get_light_state_from_api(data):
             return True
     return False
     
-#Iniciar el programa
+# Iniciar el programa
 def init_luces(request):
     encender = get_light_state_from_api(request)
     print(encender)

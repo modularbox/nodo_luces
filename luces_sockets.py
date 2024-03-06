@@ -86,7 +86,6 @@ def programa_ejecucion(request):
     global theared
     theared.changeRequestPrograma(request)
     if theared.programa_execute != Programas.PROGRAMA_POR_TIEMPO:
-        programa_luces.off_all_channels()
         theared.changePrograma(Programas.PROGRAMA)
     
 # Función para programar la ejecución del programa después de 10 segundos

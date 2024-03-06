@@ -93,6 +93,7 @@ def get_light_state_from_api(data):
     if luces_encendidas:
         # Guardamos la configuracion anterior, para que los datos no se esten seteando una y otra vez
         if guardar_configuracion_programa_canales != canales:
+            off_all_channels()
             guardar_configuracion_programa_canales = canales
             # Guardar las luces
             return True

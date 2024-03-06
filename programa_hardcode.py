@@ -12,7 +12,7 @@ class ProgramaHardcode():
             return {
                 "horarios": horario_predeterminado,
                 "modo": "automatico",
-                "canales": [1, 3, 11, 13, 21, 23, 31, 33]}
+                "canales": [1, 3, 11, 13, 21, 23, 31, 33, 41, 43, 51, 53, 61, 63, 71, 73, 81, 83, 91, 93, 101, 103, 111, 113, 121, 123, 131, 133, 141, 143, 151, 153, 161, 163, 171, 173, 181, 183]}
         if(self.lugar == 'campanario'):
             return {
                 "horarios": horario_predeterminado,

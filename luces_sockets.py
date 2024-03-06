@@ -121,7 +121,7 @@ def disconnect():
 def main_inicio():
     global theared
     while True:
-        print("sjknfdjksnkjdnk")
+        print("Checando conexion")
         if hay_internet():
             break
         time.sleep(3)

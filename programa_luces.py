@@ -3,7 +3,6 @@ from PyDMXControl.controllers import OpenDMXController
 from PyDMXControl.profiles.Generic import Custom
 from fixture_model import FixtureModel
 from luces_json import Luces
-from programa_hardcode import ProgramaHardcode
 # Cargar luces desde JSON
 # ------------------ Todo el codigo de las luces ------------------
 dmx = OpenDMXController()
@@ -13,8 +12,8 @@ custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, c
 bsq_fixture_model.setup_fixture(custom_fixture)
 
 # Guardar configuraciones anteriores
-guardar_configuracion_luces = None
-guardar_configuracion_programa_luces = []
+guardar_configuracion_programa_por_tiempo_canales = []
+guardar_configuracion_programa_canales = []
 luces_encendidas = False
 
 # Funciones para el control de los canales
@@ -25,7 +24,7 @@ def encender_con_value_luz(value, channel):
 def apagar_luz(channel):
     custom_fixture.dim(0, 0, channel - 1)
 def off_all_channels():
-    print("Apgar todos los canales s")
+    print("Apagar todos los canales")
     for i in range(500):
         custom_fixture.dim(0, 0, i)
 def ciclo_luces(luces):
@@ -38,15 +37,16 @@ def ciclo_luces(luces):
 # ------------------ Codigo para la programacion de las luces en horas ------------------
         
 # Programa para ejecutar el programa por tiempo
-def programa_por_tiempo(data):
-    global guardar_configuracion_luces
-    luces = Luces(data.get('encender'), data.get('apagar'))
-    if isinstance(guardar_configuracion_luces, Luces): 
-        if luces.encender == guardar_configuracion_luces.encender:
+def programa_por_tiempo(request):
+    global guardar_configuracion_programa_por_tiempo_canales
+    canales = request.get('canales')
+    # Verificamos si la peticion es igual para que no se esten seteando los valores
+    if canales == guardar_configuracion_programa_por_tiempo_canales:
             return None
     else:
-        guardar_configuracion_luces = luces
-    ciclo_luces(luces.encender)
+        guardar_configuracion_programa_por_tiempo_canales = canales
+
+    ciclo_luces(canales)
 
 # Función que comprueba si la hora actual está dentro del rango especificado
 def verificar_hora(hora_inicio, hora_fin):
@@ -78,11 +78,12 @@ def verificar_horarios(horarios):
 # ------------------ Termina la programacion de las luces en horas ------------------
 
 def get_light_state_from_api(data):
-    global guardar_configuracion_programa_luces
+    global guardar_configuracion_programa_canales
     global luces_encendidas
-
+    horarios = data.get('horarios')
+    canales = data.get('canales')
     # Verificar el horario para encender las luces o apagarlas
-    if verificar_horarios(data.get('horarios')):
+    if verificar_horarios(horarios):
         if not luces_encendidas:
             off_all_channels()
         luces_encendidas = True 
@@ -90,33 +91,15 @@ def get_light_state_from_api(data):
         if luces_encendidas:
             luces_encendidas = False
             off_all_channels()
-    if guardar_configuracion_programa_luces != data.get('encender'):
-        guardar_configuracion_programa_luces = data.get('encender')
+    # Guardamos la configuracion anterior, para que los datos no se esten seteando una y otra vez
+    if guardar_configuracion_programa_canales != canales:
+        guardar_configuracion_programa_canales = canales
         # Guardar las luces
-        return Luces(data.get('encender'))
+        return Luces(canales)
     return None
     
 #Iniciar el programa
-def init_luces(response, lugar):
-    if response == {}:
-        luces = get_light_state_from_api(ProgramaHardcode(lugar).get_luces_lugar())
-    else:
-        print("Traer desde la api")
-        luces = get_light_state_from_api(response)
-    print(luces)
+def init_luces(request):
+    luces = get_light_state_from_api(request)
     if luces != None: 
-        ciclo_luces(luces.encender)
-"""
- FT232R USB UART:
-
-                  Product ID: 0x6001
-                  Vendor ID: 0x0403  (Future Technology Devices International Limited)
-                  Version: 6.00
-                  Serial Number: AL0409WG
-                  Speed: Up to 12 Mb/s
-                  Manufacturer: FTDI
-                  Location ID: 0x00113000 / 6
-                  Current Available (mA): 500
-                  Current Required (mA): 90
-                  Extra Operating Current (mA): 0
-"""
+        ciclo_luces(luces.canales)

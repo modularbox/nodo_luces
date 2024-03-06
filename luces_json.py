@@ -1,9 +1,9 @@
 from enum import Enum
 
-# Configuracion de la luz encendidas
+# Configuracion de las luces, especificando los canales
 class Luces:
-    def __init__(self, encender=None):
-        self.encender = encender or []
+    def __init__(self, canales=None):
+        self.canales = canales or []
 
 # Configuracion de los horarios de inicio y fin
 class HoraInicioFin:

@@ -5,6 +5,7 @@ import sys
 import programa_luces
 from enum import Enum
 import requests
+from programa_hardcode import ProgramaHardcode
 # Verificar si hay internet
 def hay_internet():
     try:
@@ -33,16 +34,17 @@ class TimedEventThread(threading.Thread):
         self.programa_execute = Programas.PROGRAMA
         self.programa = programa
         self.programa_por_tiempo = programa_por_tiempo
-        self.request_programa = request_programa or {}
+        self.request_programa = request_programa or ProgramaHardcode(lugar).get_luces_lugar()
         self.request_programa_por_tiempo = request_programa_por_tiempo or {}
 
     def run(self):
         print("Inicio de programa")
-        while not self.stopped.wait(self.interval):
-            if self.programa_execute == Programas.PROGRAMA:
-                self.programa(self.request_programa)
-            if self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:
-                self.programa_por_tiempo(self.request_programa_por_tiempo)
+        print(self.request_programa)
+        # while not self.stopped.wait(self.interval):
+        #     if self.programa_execute == Programas.PROGRAMA:
+        #         self.programa(self.request_programa)
+        #     if self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:
+        #         self.programa_por_tiempo(self.request_programa_por_tiempo)
     
     def changePrograma(self, nuevo_programa):
         self.programa_execute = nuevo_programa
@@ -68,11 +70,15 @@ if len(sys.argv) > 1:
     print("El valor del parámetro es:", lugar)
 
 # Ejecutar el programa
+# Enviamos el request y el lugar, para obtener los datos hardcodeados
 def ejecutar_programa(request):
     global lugar
-    programa_luces.init_luces(request, lugar)
+    if request == {}:
+        programa_luces.init_luces(ProgramaHardcode(lugar).get_luces_lugar())
+    else:
+        programa_luces.init_luces(request)
 
-# Ejecutar el programa
+# Ejecutar el programa por tiempo solo se envia el request
 def ejecutar_programa_por_tiempo(request):
     programa_luces.programa_por_tiempo(request)
     
@@ -88,7 +94,7 @@ def programa_ejecucion(request):
 def programa_por_tiempo_ejecucion(request):
     global theared
     theared.changeRequestProgramaPorTiempo(request)
-    programa_luces.guardar_configuracion_luces = None
+    programa_luces.guardar_configuracion_programa_por_tiempo_canales = None
     programa_luces.off_all_channels()
     theared.changePrograma(Programas.PROGRAMA_POR_TIEMPO)
     time.sleep(request.get('time'))
@@ -101,12 +107,14 @@ def connect():
     print('connection established')
 
 @sio.on('programa' + lugar)
-def programa(data):
-    programa_ejecucion(data)
+def programa(request):
+    print('Nueva configuracion programa en ejecucion: ', request)
+    programa_ejecucion(request)
 
 @sio.on('programa_por_tiempo' + lugar)
-def programa_por_tiempo(data):
-    programa_por_tiempo_ejecucion(data)
+def programa_por_tiempo(request):
+    print('Nueva configuracion programa por tiempo: ', request)
+    programa_por_tiempo_ejecucion(request)
 
 @sio.event
 def disconnect():

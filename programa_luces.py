@@ -71,7 +71,6 @@ def verificar_horarios(horarios):
     if isinstance(horarios, list):
         for horario in horarios:
             if verificar_hora(horario.get('horario_inicio'), horario.get('horario_fin')):
-                print("Esta en el horario") 
                 return True
         return False
 # ------------------ Termina la programacion de las luces en horas ------------------
@@ -102,6 +101,5 @@ def get_light_state_from_api(data):
 # Iniciar el programa
 def init_luces(request):
     encender = get_light_state_from_api(request)
-    print(encender)
     if encender: 
         ciclo_luces(guardar_configuracion_programa_canales)

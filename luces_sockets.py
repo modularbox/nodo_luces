@@ -41,8 +41,10 @@ class TimedEventThread(threading.Thread):
         try:
             while not self.stopped.wait(self.interval):
                 if self.programa_execute == Programas.PROGRAMA:
-                    self.programa(self.request_programa)
+                    print("programa")
+                    # self.programa(self.request_programa)
                 elif self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:
+                    
                     self.programa_por_tiempo(self.request_programa_por_tiempo)
         except Exception as e:
             print("Erororororodjndjsnjd", e)

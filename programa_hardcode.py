@@ -40,7 +40,7 @@ class ProgramaHardcode():
                 "horarios": horario_predeterminado,
                 "modo": "automatico",
                 "canales": 
-                [2, 7, 12, 17]
+                [12, 22, 32, 42]
                 }
         return {}
         

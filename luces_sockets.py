@@ -118,8 +118,7 @@ def programa_por_tiempo(request):
 def disconnect():
     print('disconnected from server')
 def main_inicio():
-    verificar_conexion_internet = True
-    while verificar_conexion_internet:
+    while True:
         print("sjknfdjksnkjdnk")
         if hay_internet():
             break
@@ -135,5 +134,6 @@ def main_inicio():
         sio.wait()
     except Exception as error:
         print("Error: ", error)
+        main_inicio()
 if __name__ == "__main__":
     main_inicio()

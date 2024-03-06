@@ -119,9 +119,9 @@ def programa_por_tiempo(request):
 @sio.event
 def disconnect():
     print('disconnected from server')
-    main_inicio()
 
 def main_inicio():
+    global theared
     while True:
         print("sjknfdjksnkjdnk")
         if hay_internet():

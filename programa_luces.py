@@ -71,6 +71,7 @@ def verificar_horarios(horarios):
     if isinstance(horarios, list):
         for horario in horarios:
             if verificar_hora(horario.get('horario_inicio'), horario.get('horario_fin')):
+                print("Esta en horario")
                 return True
         return False
 # ------------------ Termina la programacion de las luces en horas ------------------

@@ -11,7 +11,6 @@ from programa_hardcode import ProgramaHardcode
 def hay_internet():
     try:
         response = requests.get("http://www.google.com", timeout=5)
-        print(response)
         return response.status_code == 200
     except requests.ConnectionError:
         return False
@@ -44,7 +43,6 @@ class TimedEventThread(threading.Thread):
                 if self.programa_execute == Programas.PROGRAMA:
                     self.programa(self.request_programa)
                 elif self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:
-                    
                     self.programa_por_tiempo(self.request_programa_por_tiempo)
         except Exception as e:
             print("Erororororodjndjsnjd", e)

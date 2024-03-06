@@ -39,6 +39,7 @@ class TimedEventThread(threading.Thread):
 
     def run(self):
         while not self.stopped.wait(self.interval):
+            print("Entro ")
             if self.programa_execute == Programas.PROGRAMA:
                 self.programa(self.request_programa)
             elif self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:

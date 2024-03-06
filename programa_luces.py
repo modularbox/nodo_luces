@@ -45,7 +45,6 @@ def programa_por_tiempo(request):
             return None
     else:
         guardar_configuracion_programa_por_tiempo_canales = canales
-
     ciclo_luces(canales)
 
 # Función que comprueba si la hora actual está dentro del rango especificado

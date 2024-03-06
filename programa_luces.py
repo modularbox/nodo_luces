@@ -80,6 +80,7 @@ def get_light_state_from_api(data):
     global guardar_configuracion_programa_canales
     global luces_encendidas
     horarios = data.get('horarios')
+    print(horarios)
     canales = data.get('canales')
     # Verificar el horario para encender las luces o apagarlas
     if verificar_horarios(horarios):

@@ -6,6 +6,7 @@ import programa_luces
 from enum import Enum
 import requests
 from programa_hardcode import ProgramaHardcode
+
 # Verificar si hay internet
 def hay_internet():
     try:
@@ -136,5 +137,6 @@ def main_inicio():
     except Exception as error:
         print("Error: ", error)
         main_inicio() 
+
 if __name__ == "__main__":
     main_inicio()

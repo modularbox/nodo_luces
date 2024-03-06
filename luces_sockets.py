@@ -40,11 +40,11 @@ class TimedEventThread(threading.Thread):
     def run(self):
         print("Inicio de programa")
         print(self.request_programa)
-        # while not self.stopped.wait(self.interval):
-        #     if self.programa_execute == Programas.PROGRAMA:
-        #         self.programa(self.request_programa)
-        #     if self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:
-        #         self.programa_por_tiempo(self.request_programa_por_tiempo)
+        while not self.stopped.wait(self.interval):
+            if self.programa_execute == Programas.PROGRAMA :
+                self.programa(self.request_programa)
+            elif self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:
+                self.programa_por_tiempo(self.request_programa_por_tiempo)
     
     def changePrograma(self, nuevo_programa):
         self.programa_execute = nuevo_programa
@@ -72,11 +72,7 @@ if len(sys.argv) > 1:
 # Ejecutar el programa
 # Enviamos el request y el lugar, para obtener los datos hardcodeados
 def ejecutar_programa(request):
-    global lugar
-    if request == {}:
-        programa_luces.init_luces(ProgramaHardcode(lugar).get_luces_lugar())
-    else:
-        programa_luces.init_luces(request)
+    programa_luces.init_luces(request)
 
 # Ejecutar el programa por tiempo solo se envia el request
 def ejecutar_programa_por_tiempo(request):
@@ -93,13 +89,14 @@ def programa_ejecucion(request):
 # Función para programar la ejecución del programa después de 10 segundos
 def programa_por_tiempo_ejecucion(request):
     global theared
-    theared.changeRequestProgramaPorTiempo(request)
-    programa_luces.guardar_configuracion_programa_por_tiempo_canales = None
-    programa_luces.off_all_channels()
-    theared.changePrograma(Programas.PROGRAMA_POR_TIEMPO)
-    time.sleep(request.get('time'))
-    programa_luces.off_all_channels()
-    theared.changePrograma(Programas.PROGRAMA)
+    if theared.request_programa.get('modo') == 'manual':
+        theared.changeRequestProgramaPorTiempo(request)
+        programa_luces.guardar_configuracion_programa_por_tiempo_canales = None
+        programa_luces.off_all_channels()
+        theared.changePrograma(Programas.PROGRAMA_POR_TIEMPO)
+        time.sleep(request.get('time'))
+        programa_luces.off_all_channels()
+        theared.changePrograma(Programas.PROGRAMA)
 
 # Funcion de los sockets
 @sio.event

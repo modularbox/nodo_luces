@@ -39,17 +39,3 @@ journalctl -u auto-restart.service
 
 Comando para borrar los logs 
 journalctl --vacuum-size=1M -u auto-restart.service
-
-echo "[Unit]
-Description=Iniciar luces
-
-[Service]
-ExecStart=/usr/bin/python3 /nodo_luces/luces_sockets.py desaguadero
-Restart=always
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=programa
-
-[Install]
-WantedBy=multi-user.target
-" > /etc/systemd/system/auto-restart.service

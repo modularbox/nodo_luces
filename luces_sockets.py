@@ -119,6 +119,8 @@ def programa_por_tiempo(request):
 @sio.event
 def disconnect():
     print('disconnected from server')
+    main_inicio()
+
 def main_inicio():
     while True:
         print("sjknfdjksnkjdnk")
@@ -136,6 +138,6 @@ def main_inicio():
         sio.wait()
     except Exception as error:
         print("Error: ", error)
-        main_inicio()
+        main_inicio() 
 if __name__ == "__main__":
     main_inicio()

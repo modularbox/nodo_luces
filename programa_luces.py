@@ -2,7 +2,6 @@ from datetime import datetime
 from PyDMXControl.controllers import OpenDMXController
 from PyDMXControl.profiles.Generic import Custom
 from fixture_model import FixtureModel
-from luces_json import Luces
 # Cargar luces desde JSON
 # ------------------ Todo el codigo de las luces ------------------
 dmx = OpenDMXController()
@@ -40,12 +39,13 @@ def ciclo_luces(luces):
 def programa_por_tiempo(request):
     global guardar_configuracion_programa_por_tiempo_canales
     canales = request.get('canales')
+    ejecutar_cliclo = False
     # Verificamos si la peticion es igual para que no se esten seteando los valores
-    if canales == guardar_configuracion_programa_por_tiempo_canales:
-            return None
-    else:
+    if canales != guardar_configuracion_programa_por_tiempo_canales:
         guardar_configuracion_programa_por_tiempo_canales = canales
-    ciclo_luces(canales)
+        ejecutar_cliclo = True
+    if ejecutar_cliclo:    
+        ciclo_luces(canales)
 
 # Función que comprueba si la hora actual está dentro del rango especificado
 def verificar_hora(hora_inicio, hora_fin):
@@ -90,16 +90,17 @@ def get_light_state_from_api(data):
         if luces_encendidas:
             luces_encendidas = False
             off_all_channels()
-    # Guardamos la configuracion anterior, para que los datos no se esten seteando una y otra vez
-    if guardar_configuracion_programa_canales != canales:
-        guardar_configuracion_programa_canales = canales
-        # Guardar las luces
-        return Luces(canales)
-    return None
+    if luces_encendidas:
+        # Guardamos la configuracion anterior, para que los datos no se esten seteando una y otra vez
+        if guardar_configuracion_programa_canales != canales:
+            guardar_configuracion_programa_canales = canales
+            # Guardar las luces
+            return True
+    return False
     
 #Iniciar el programa
 def init_luces(request):
-    luces = get_light_state_from_api(request)
-    print(luces)
-    if luces != None: 
-        ciclo_luces(luces.canales)
+    encender = get_light_state_from_api(request)
+    print(encender)
+    if encender: 
+        ciclo_luces(guardar_configuracion_programa_canales)

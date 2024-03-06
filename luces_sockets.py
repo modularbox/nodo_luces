@@ -89,7 +89,7 @@ def programa_por_tiempo_ejecucion(request):
     global theared
     if theared.request_programa.get('modo') == 'manual':
         theared.changeRequestProgramaPorTiempo(request)
-        programa_luces.guardar_configuracion_programa_por_tiempo_canales = None
+        programa_luces.guardar_configuracion_programa_por_tiempo_canales = []
         programa_luces.off_all_channels()
         theared.changePrograma(Programas.PROGRAMA_POR_TIEMPO)
         time.sleep(request.get('time'))

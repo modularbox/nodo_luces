@@ -5,7 +5,7 @@ class ProgramaHardcode():
 
     def get_luces_lugar(self):
         horario_predeterminado = [
-                    {"horario_inicio": "20:00:00", "horario_fin": "23:59:00"},
+                    {"horario_inicio": "13:00:00", "horario_fin": "23:59:00"},
                     {"horario_inicio": "00:00:00", "horario_fin": "05:00:00"},
                 ]
         if(self.lugar == 'saucedilla'):

@@ -118,6 +118,7 @@ def disconnect():
 if __name__ == "__main__":
     verificar_conexion_internet = True
     while verificar_conexion_internet:
+        print("sjknfdjksnkjdnk")
         if hay_internet():
             break
         time.sleep(3)

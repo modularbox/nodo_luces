@@ -117,8 +117,7 @@ def programa_por_tiempo(request):
 @sio.event
 def disconnect():
     print('disconnected from server')
-
-if __name__ == "__main__":
+def main_inicio():
     verificar_conexion_internet = True
     while verificar_conexion_internet:
         print("sjknfdjksnkjdnk")
@@ -132,4 +131,9 @@ if __name__ == "__main__":
     theared = TimedEventThread(2, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo)
     # Iniciar Evento
     start_event(theared)
-    sio.wait()
+    try:
+        sio.wait()
+    except Exception as error:
+        print("Error: ", error)
+if __name__ == "__main__":
+    main_inicio()

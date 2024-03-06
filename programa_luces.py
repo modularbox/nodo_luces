@@ -100,5 +100,6 @@ def get_light_state_from_api(data):
 #Iniciar el programa
 def init_luces(request):
     luces = get_light_state_from_api(request)
+    print(luces)
     if luces != None: 
         ciclo_luces(luces.canales)

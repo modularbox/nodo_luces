@@ -69,7 +69,7 @@ def start_event(event_thread):
 lugar = 'garaje'
 if len(sys.argv) > 1:
     lugar = sys.argv[1]
-    logger.log_info("El valor del parámetro es:", lugar)
+    logger.log_info(f"El valor del parámetro es: {lugar}")
 
 # Ejecutar el programa
 # Enviamos el request y el lugar, para obtener los datos hardcodeados
@@ -106,12 +106,12 @@ def connect():
 
 @sio.on('programa' + lugar)
 def programa(request):
-    logger.log_info('Nueva configuracion programa en ejecucion: ', request)
+    logger.log_info(f'Nueva configuracion programa en ejecucion: {request}')
     programa_ejecucion(request)
 
 @sio.on('programa_por_tiempo' + lugar)
 def programa_por_tiempo(request):
-    logger.log_info('Nueva configuracion programa por tiempo: ', request)
+    logger.log_info(f'Nueva configuracion programa por tiempo: {request}')
     programa_por_tiempo_ejecucion(request)
 
 @sio.event
@@ -134,7 +134,7 @@ def main_inicio():
     try:
         sio.wait()
     except Exception as error:
-        logger.log_info("Error: ", error)
+        logger.log_info(f"Error: {error}")
         main_inicio() 
 
 if __name__ == "__main__":

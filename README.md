@@ -19,8 +19,8 @@ Description=Iniciar luces
 [Service]
 ExecStart=/usr/bin/python3 /nodo_luces/luces_sockets.py lugar
 Restart=always
-StandardOutput=syslog
-StandardError=syslog
+StandardOutput=journal
+StandardError=journal
 SyslogIdentifier=programa
 
 [Install]
@@ -32,10 +32,11 @@ systemctl daemon-reload
 systemctl enable auto-restart.service
 systemctl start auto-restart.service
 systemctl status auto-restart.service
-/usr/bin/python3 /nodo_luces/luces_sockets.py ermita
+/usr/bin/python3 /nodo_luces/luces_sockets.py lugar
 
 Comando para ver los logs
 journalctl -u auto-restart.service
 
 Comando para borrar los logs 
 journalctl --vacuum-size=1M -u auto-restart.service
+

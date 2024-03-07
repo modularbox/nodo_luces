@@ -2,6 +2,10 @@ from datetime import datetime
 from PyDMXControl.controllers import OpenDMXController
 from PyDMXControl.profiles.Generic import Custom
 from fixture_model import FixtureModel
+from custom_logger import CustomLogger
+
+# Crear una instancia del logger
+logger = CustomLogger()
 # Cargar luces desde JSON
 # ------------------ Todo el codigo de las luces ------------------
 try:
@@ -23,7 +27,7 @@ def encender_luz(channel):
 def encender_con_value_luz(value, channel):
     custom_fixture.dim(value, 0, channel - 1)
 def off_all_channels():
-    print("Apagar todos los canales")
+    logger.log_info("Apagar todos los canales")
     for i in range(500):
         custom_fixture.dim(0, 0, i)
 def ciclo_luces(luces):

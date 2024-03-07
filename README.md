@@ -32,6 +32,7 @@ systemctl daemon-reload
 systemctl enable auto-restart.service
 systemctl start auto-restart.service
 systemctl status auto-restart.service
+systemctl stop auto-restart.service
 /usr/bin/python3 /nodo_luces/luces_sockets.py lugar
 
 Comando para ver los logs
@@ -40,3 +41,19 @@ journalctl -u auto-restart.service
 Comando para borrar los logs 
 journalctl --vacuum-size=1M -u auto-restart.service
 
+Comando para ver los registros en tiempo real
+journalctl -fu auto-restart.service
+
+echo "[Unit]
+Description=Iniciar luces
+
+[Service]
+ExecStart=/usr/bin/python3 /nodo_luces/luces_sockets.py cruz_bendita
+Restart=always
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=programa
+
+[Install]
+WantedBy=multi-user.target
+" > /etc/systemd/system/auto-restart.service

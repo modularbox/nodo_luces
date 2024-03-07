@@ -18,27 +18,27 @@ class ProgramaHardcode():
                 "horarios": horario_predeterminado,
                 "modo": "automatico",
                 "canales": 
-                [3, 11, 19, 27, 32, 37, 42, 47, 52, 60, 68, 76, 84, 92, 100]}
+                [[1, 170], 3, [9, 170], 11, [17, 170], 19, [25, 170], 27, [30, 170], 32, [35, 170], 37, [40, 170], 42, [45, 170], 47, [50, 170], 52, [58, 170], 60, [66, 170], 68, [74, 170], 76, [82, 170], 84, [90, 170], 92, [98, 170], 100]}
         if(self.lugar == 'cruz_bendita'):
             return {
                 "horarios": horario_predeterminado,
                 "modo": "automatico",
                 "canales": 
-                [1, 3, 9, 11, 17, 19, 25, 27, 33, 35, 42, 46, 50, 54]
+                [[1, 170], 3, [2, 170], 4, [9, 170], 11, [10, 170], 12, [17, 170], 19, [18, 170], 20, [25, 170], 27, [26, 170], 28, [33, 170], 35, [34, 170], 36, [41, 170], 43, [45, 170], 47, [49, 170], 51, [53, 170], 55]
                 }
         if(self.lugar == 'desaguadero'):
             return {
                 "horarios": horario_predeterminado,
                 "modo": "automatico",
                 "canales": 
-                [1, 2, 3, 4, 6, 11, 16, 21]
+                [1, 2, 3, 4, [5, 170], 7, [10, 170], 12, [15, 170], 17, [20, 170], 22]
                 }
         if(self.lugar == 'ermita'):
             return {
                 "horarios": horario_predeterminado,
                 "modo": "automatico",
                 "canales": 
-                [12, 22, 32, ]
+                [[11, 170], 13, [21, 170], 23, [31, 170], 33, [41, 170], 43]
                 }
         return {}
         

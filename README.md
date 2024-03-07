@@ -48,7 +48,7 @@ echo "[Unit]
 Description=Iniciar luces
 
 [Service]
-ExecStart=/usr/bin/python3 /nodo_luces/luces_sockets.py cruz_bendita
+ExecStart=/usr/bin/python3 /nodo_luces/luces_sockets.py campanario
 Restart=always
 StandardOutput=journal
 StandardError=journal

@@ -6,6 +6,10 @@ import programa_luces
 from enum import Enum
 import requests
 from programa_hardcode import ProgramaHardcode
+from custom_logger import CustomLogger
+
+# Crear una instancia del logger
+logger = CustomLogger()
 
 # Verificar si hay internet
 def hay_internet():
@@ -57,15 +61,15 @@ class TimedEventThread(threading.Thread):
 def start_event(event_thread):
     if not event_thread.is_alive():
         event_thread.start()
-        print("Evento iniciado")
+        logger.log_info("Evento iniciado")
     else:
-        print("El evento ya está en ejecución")
+        logger.log_info("El evento ya está en ejecución")
 
 # Example: Correr programa python3 luces.py lugar
 lugar = 'garaje'
 if len(sys.argv) > 1:
     lugar = sys.argv[1]
-    print("El valor del parámetro es:", lugar)
+    logger.log_info("El valor del parámetro es:", lugar)
 
 # Ejecutar el programa
 # Enviamos el request y el lugar, para obtener los datos hardcodeados
@@ -98,26 +102,26 @@ def programa_por_tiempo_ejecucion(request):
 # Funcion de los sockets
 @sio.event
 def connect():
-    print('connection established')
+    logger.log_info('connection established')
 
 @sio.on('programa' + lugar)
 def programa(request):
-    print('Nueva configuracion programa en ejecucion: ', request)
+    logger.log_info('Nueva configuracion programa en ejecucion: ', request)
     programa_ejecucion(request)
 
 @sio.on('programa_por_tiempo' + lugar)
 def programa_por_tiempo(request):
-    print('Nueva configuracion programa por tiempo: ', request)
+    logger.log_info('Nueva configuracion programa por tiempo: ', request)
     programa_por_tiempo_ejecucion(request)
 
 @sio.event
 def disconnect():
-    print('disconnected from server')
+    logger.log_info('disconnected from server')
 
 def main_inicio():
     global theared
     while True:
-        print("Checando conexion")
+        logger.log_info("Checando conexion")
         if hay_internet():
             break
         time.sleep(3)
@@ -130,7 +134,7 @@ def main_inicio():
     try:
         sio.wait()
     except Exception as error:
-        print("Error: ", error)
+        logger.log_info("Error: ", error)
         main_inicio() 
 
 if __name__ == "__main__":

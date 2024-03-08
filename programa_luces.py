@@ -23,10 +23,10 @@ luces_encendidas = False
 
 # Funciones para el control de los canales
 def encender_luz(channel):
-    print("Se encendieron las luces")
+    # print("Se encendieron las luces")
     custom_fixture.dim(255, 0, channel - 1)
 def encender_con_value_luz(value, channel):
-    print("Se encendieron las luces")
+    # print("Se encendieron las luces")
     custom_fixture.dim(value, 0, channel - 1)
 def off_all_channels():
     logger.log_info("Apagar todos los canales")

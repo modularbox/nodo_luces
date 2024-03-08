@@ -90,6 +90,7 @@ def get_light_state_from_api(data):
         luces_encendidas = True 
     else:
         if luces_encendidas:
+            guardar_configuracion_programa_canales = []
             luces_encendidas = False
             off_all_channels()
     if luces_encendidas:

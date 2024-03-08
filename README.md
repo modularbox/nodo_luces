@@ -33,6 +33,7 @@ systemctl enable auto-restart.service
 systemctl start auto-restart.service
 systemctl status auto-restart.service
 systemctl stop auto-restart.service
+systemctl restart auto-restart.service
 /usr/bin/python3 /nodo_luces/luces_sockets.py lugar
 
 Comando para ver los logs

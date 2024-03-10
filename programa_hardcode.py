@@ -38,7 +38,10 @@ class ProgramaHardcode():
             print('Configuracion Desaguadero')
             logger.log_info('Configuracion Desaguadero')
             return {
-                "horarios": horario_predeterminado,
+                "horarios": [
+                    {"horario_inicio": "10:00:00", "horario_fin": "23:59:00"},
+                    {"horario_inicio": "00:00:00", "horario_fin": "05:00:00"},
+                ],
                 "modo": "automatico",
                 "canales": 
                 [1, 2, 3, 4, 7, 12, 17, 22]

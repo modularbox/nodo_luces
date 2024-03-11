@@ -117,6 +117,9 @@ def programa_por_tiempo(request):
 @sio.event
 def disconnect():
     logger.log_info('disconnected from server')
+    # Intentar reconectar después de 3 segundos
+    time.sleep(3)
+    main_inicio()
 
 def main_inicio():
     global theared

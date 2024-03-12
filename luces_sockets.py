@@ -115,6 +115,10 @@ def programa_por_tiempo(request):
     programa_por_tiempo_ejecucion(request)
 
 @sio.event
+def connect_error(data):
+    logger.log_warning('The connection failed', data)
+
+@sio.event
 def disconnect():
     logger.log_info('disconnected from server')
     # Intentar reconectar después de 3 segundos

@@ -49,11 +49,11 @@ echo "[Unit]
 Description=Iniciar luces
 
 [Service]
-ExecStart=/usr/bin/python3 /nodo_luces/luces_sockets.py campanario
+ExecStart=/usr/bin/python3 /nodo_luces/luces_sockets.py > app.log 2>&1 campanario
 Restart=always
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=programa
+SyslogIdentifier=luces_sockets
 
 [Install]
 WantedBy=multi-user.target

@@ -1,9 +1,9 @@
 import logging
 
 class CustomLogger:
-    def __init__(self, log_file='app.log'):
+    def __init__(self):
         # Configura el logger
-        logging.basicConfig(filename=log_file, level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+        logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
     def log_info(self, message):
         print(message)

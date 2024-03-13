@@ -8,6 +8,9 @@ import requests
 from programa_hardcode import ProgramaHardcode
 from custom_logger import CustomLogger
 
+# Version Programa
+VERSION = '2.0.0'
+
 # Crear una instancia del logger
 logger = CustomLogger()
 
@@ -28,7 +31,7 @@ class Programas(Enum):
 theared_program = threading.Event()
 
 # Cliente de los sockets
-sio = socketio.Client()
+sio = socketio.Client(logger=True,)
 
 class TimedEventThread(threading.Thread):
     def __init__(self, interval, event, programa, programa_por_tiempo, request_programa=None, request_programa_por_tiempo=None):
@@ -61,7 +64,7 @@ class TimedEventThread(threading.Thread):
 def start_event(event_thread):
     if not event_thread.is_alive():
         event_thread.start()
-        logger.log_info("Evento iniciado")
+        logger.log_info(f"Programa iniciado VERSION: {VERSION}")
     else:
         logger.log_info("El evento ya está en ejecución")
 
@@ -102,16 +105,20 @@ def programa_por_tiempo_ejecucion(request):
 # Funcion de los sockets
 @sio.event
 def connect():
-    logger.log_info('connection established')
+    logger.log_info('connection established sockets')
 
 @sio.on('programa' + lugar)
 def programa(request):
-    logger.log_info(f'Nueva configuracion programa en ejecucion: {request}')
+    string_request = str(request)
+    logger.log_info('Nueva configuracion programa en ejecucion')
+    logger.log_warning(string_request)
     programa_ejecucion(request)
 
 @sio.on('programa_por_tiempo' + lugar)
 def programa_por_tiempo(request):
-    logger.log_info(f'Nueva configuracion programa por tiempo: {request}')
+    string_request = str(request)
+    logger.log_info('Nueva configuracion programa por tiempo')
+    logger.log_warning(string_request)
     programa_por_tiempo_ejecucion(request)
 
 @sio.event
@@ -122,8 +129,8 @@ def connect_error(data):
 def disconnect():
     logger.log_info('disconnected from server')
     # Intentar reconectar después de 3 segundos
-    time.sleep(3)
-    main_inicio()
+    # time.sleep(3)
+    # main_inicio()
 
 def main_inicio():
     global theared
@@ -133,7 +140,7 @@ def main_inicio():
             break
         time.sleep(3)
     # Iniciar los sockets
-    sio.connect('http://api.conectateriolobos.es:3005')
+    sio.connect('http://apiluces.modularbox.com:3005')
     # Crea el hilo para el evento
     theared = TimedEventThread(2, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo)
     # Iniciar Evento

@@ -107,4 +107,5 @@ def get_light_state_from_api(data):
 def init_luces(request):
     encender = get_light_state_from_api(request)
     if encender: 
+        print("Encender luces")
         ciclo_luces(guardar_configuracion_programa_canales)

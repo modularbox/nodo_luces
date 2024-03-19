@@ -142,7 +142,7 @@ def main_inicio():
     # Iniciar los sockets
     sio.connect('http://apiluces.modularbox.com:3005')
     # Crea el hilo para el evento
-    theared = TimedEventThread(2, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo)
+    theared = TimedEventThread(6, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo)
     # Iniciar Evento
     start_event(theared)
     try:

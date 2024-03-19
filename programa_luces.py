@@ -109,5 +109,5 @@ def get_light_state_from_api(data):
 def init_luces(request):
     encender = get_light_state_from_api(request)
     if encender: 
-        print("---------------------- Encender luces -------------------")
+        logger.log_info("---------------------- Encender luces -------------------")
         ciclo_luces()

@@ -33,6 +33,8 @@ def off_all_channels():
     for i in range(500):
         custom_fixture.dim(0, 0, i)
 def ciclo_luces(luces):
+    global guardar_configuracion_programa_canales
+    luces = guardar_configuracion_programa_canales
     for channel in luces:
         if isinstance(channel, list):
             encender_con_value_luz(channel[1], channel[0])
@@ -107,5 +109,5 @@ def get_light_state_from_api(data):
 def init_luces(request):
     encender = get_light_state_from_api(request)
     if encender: 
-        print("Encender luces")
-        ciclo_luces(guardar_configuracion_programa_canales)
+        print("---------------------- Encender luces -------------------")
+        ciclo_luces()

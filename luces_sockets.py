@@ -9,7 +9,7 @@ from programa_hardcode import ProgramaHardcode
 from custom_logger import CustomLogger
 
 # Version Programa
-VERSION = '2.0.0-2'
+VERSION = '2.0.1-1'
 
 # Crear una instancia del logger
 logger = CustomLogger()
@@ -129,8 +129,8 @@ def connect_error(data):
 def disconnect():
     logger.log_info('disconnected from server')
     # Intentar reconectar después de 3 segundos
-    time.sleep(3)
-    main_inicio()
+        # time.sleep(3)
+        # main_inicio() 
 
 def main_inicio():
     global theared
@@ -146,7 +146,7 @@ def main_inicio():
     # Iniciar Evento
     start_event(theared)
     try:
-        sio.wait()
+        sio.wait()  
     except Exception as error:
         logger.log_info(f"Error: {error}")
         main_inicio() 

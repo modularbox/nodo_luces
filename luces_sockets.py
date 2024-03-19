@@ -9,7 +9,7 @@ from programa_hardcode import ProgramaHardcode
 from custom_logger import CustomLogger
 
 # Version Programa
-VERSION = '2.0.2-3'
+VERSION = '2.0.2-4'
 
 # Crear una instancia del logger
 logger = CustomLogger()
@@ -46,6 +46,17 @@ class TimedEventThread(threading.Thread):
 
     def run(self):
         while not self.stopped.wait(self.interval):
+            logger.log_info(sio.connected)
+            if not sio.connected:
+                try:
+                    logger.log_info("Conexión A los sockeettnskdn.")
+                    sio.connect('http://apiluces.modularbox.com:3005')
+                    logger.log_info("Conexión exitosa.")
+                    sio.sleep(2)
+                    break  # Salir del bucle si la conexión es exitosa
+                except socketio.exceptions.ConnectionError:
+                    logger.log_info("Error al intentar reconectar. Reintentando en 2 segundos...")
+                    
             if self.programa_execute == Programas.PROGRAMA:
                 self.programa(self.request_programa)
             elif self.programa_execute == Programas.PROGRAMA_POR_TIEMPO:
@@ -140,16 +151,16 @@ def main_inicio():
             break
         time.sleep(3)
     # Iniciar los sockets
-    sio.connect('http://apiluces.modularbox.com:3005')
+    # sio.connect('http://apiluces.modularbox.com:3005')
     # Crea el hilo para el evento
     theared = TimedEventThread(2, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo)
     # Iniciar Evento
     start_event(theared)
-    try:
-        sio.wait()  
-    except Exception as error:
-        logger.log_info(f"Error: {error}")
-        main_inicio() 
+    # try:
+    #     sio.wait()  
+    # except Exception as error:
+    #     logger.log_info(f"Error: {error}")
+    #     main_inicio() 
 
 if __name__ == "__main__":
     main_inicio()

@@ -4,7 +4,7 @@ import numpy as np
 
 
 class PyDMX:
-    def __init__(self,COM='COM8',Cnumber=512,Brate=250000,Bsize=8,StopB=2,use_prev_data=False,preserve_data_name="preserved_data.txt"):
+    def __init__(self,COM='DMX',Cnumber=512,Brate=250000,Bsize=8,StopB=2,use_prev_data=False,preserve_data_name="preserved_data.txt"):
         #start serial
         self.channel_num = Cnumber
         self.ser = serial.Serial(COM,baudrate=Brate,bytesize=Bsize,stopbits=StopB)

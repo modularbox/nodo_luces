@@ -52,7 +52,7 @@ class TimedEventThread(threading.Thread):
                     logger.log_info("Conexión A los sockeettnskdn.")
                     sio.connect('http://apiluces.modularbox.com:3005')
                     logger.log_info("Conexión exitosa.")
-                    sio.sleep(2)
+                    sio.wait()
                 except socketio.exceptions.ConnectionError:
                     logger.log_info("Error al intentar reconectar. Reintentando en 2 segundos...")
                     

@@ -1,6 +1,6 @@
 from PyDMX import *
 
-dmx = PyDMX('COM11') # for Linux use '/dev/ttyUSB0' or something
+dmx = PyDMX('/dev/bus/usb/001/005') # for Linux use '/dev/ttyUSB0' or something
 
 while True:
     dmx.set_data(1,255)

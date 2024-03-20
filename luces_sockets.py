@@ -31,7 +31,7 @@ class Programas(Enum):
 theared_program = threading.Event()
 
 # Cliente de los sockets
-sio = socketio.Client(logger=True,)
+sio = socketio.Client(logger=True, reconnection=False)
 
 class TimedEventThread(threading.Thread):
     def __init__(self, interval, event, programa, programa_por_tiempo, request_programa=None, request_programa_por_tiempo=None):

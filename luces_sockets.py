@@ -46,12 +46,11 @@ class TimedEventThread(threading.Thread):
 
     def run(self):
         while not self.stopped.wait(self.interval):
-            logger.log_info(sio.connected)
+            # Iniciar los sockets
             if not sio.connected:
                 try:
-                    logger.log_info("Conexión A los sockeettnskdn.")
                     sio.connect('http://apiluces.modularbox.com:3005')
-                    logger.log_info("Conexión exitosa.")
+                    logger.log_info("Conexión exitosa a los sockets.")
                     sio.sleep(2)
                 except socketio.exceptions.ConnectionError:
                     logger.log_info("Error al intentar reconectar. Reintentando en 2 segundos...")
@@ -149,17 +148,10 @@ def main_inicio():
         if hay_internet():
             break
         time.sleep(3)
-    # Iniciar los sockets
-    # sio.connect('http://apiluces.modularbox.com:3005')
     # Crea el hilo para el evento
     theared = TimedEventThread(2, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo)
     # Iniciar Evento
     start_event(theared)
-    # try:
-    #     sio.wait()  
-    # except Exception as error:
-    #     logger.log_info(f"Error: {error}")
-    #     main_inicio() 
 
 if __name__ == "__main__":
     main_inicio()

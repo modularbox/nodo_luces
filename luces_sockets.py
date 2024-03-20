@@ -133,7 +133,7 @@ def programa_por_tiempo(request):
 
 @sio.event
 def connect_error(data):
-    logger.log_warning('The connection failed', data)
+    logger.log_warning('The connection failed')
 
 @sio.event
 def disconnect():

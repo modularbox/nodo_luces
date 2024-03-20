@@ -9,7 +9,7 @@ from programa_hardcode import ProgramaHardcode
 from custom_logger import CustomLogger
 
 # Version Programa
-VERSION = '2.0.2-4'
+VERSION = '2.0.2-5'
 
 # Crear una instancia del logger
 logger = CustomLogger()
@@ -53,7 +53,6 @@ class TimedEventThread(threading.Thread):
                     sio.connect('http://apiluces.modularbox.com:3005')
                     logger.log_info("Conexión exitosa.")
                     sio.sleep(2)
-                    break  # Salir del bucle si la conexión es exitosa
                 except socketio.exceptions.ConnectionError:
                     logger.log_info("Error al intentar reconectar. Reintentando en 2 segundos...")
                     

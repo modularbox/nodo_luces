@@ -71,10 +71,7 @@ class GuardarConfiguracion:
 
     def guardar_datos_en_json(self, nuevos_datos):
         try:
-            with open(self.nombre_archivo, 'r') as archivo:
-                datos = json.load(archivo)
-                datos[self.lugar] = nuevos_datos
-                with open(self.nombre_archivo, 'w') as archivoWrite:
-                    json.dump(datos, archivoWrite)
+            with open(self.nombre_archivo, 'w') as archivoWrite:
+                json.dump(nuevos_datos, archivoWrite)
         except Exception as e:
             print("Error al guardar datos en JSON:", e)

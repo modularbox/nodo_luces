@@ -4,7 +4,7 @@ import os
 class GuardarConfiguracion:
     def __init__(self, lugar):
         self.lugar = lugar
-        self.nombre_archivo = 'datos.json'
+        self.nombre_archivo = 'datos_guardados.json'
         self.hardcode_luces = {
             "saucedilla": {
                 "horarios": [

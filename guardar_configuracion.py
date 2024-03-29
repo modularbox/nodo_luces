@@ -46,7 +46,7 @@ class GuardarConfiguracion:
                 "modo": "automatico",
                 "canales": [13, 23, 33, 43]
             },
-            "garage":{
+            "oficina_caceres":{
                 "horarios": [
                     {"horario_inicio": "19:30:00", "horario_fin": "23:59:00"},
                     {"horario_inicio": "00:00:00", "horario_fin": "05:00:00"}

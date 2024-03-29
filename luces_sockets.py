@@ -9,7 +9,7 @@ from programa_hardcode import ProgramaHardcode
 from custom_logger import CustomLogger
 
 # Version Programa
-VERSION = '2.0.4-2'
+VERSION = '2.0.4-3'
 
 # Crear una instancia del logger
 logger = CustomLogger()

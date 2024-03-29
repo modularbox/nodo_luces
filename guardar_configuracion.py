@@ -1,8 +1,8 @@
 import json
 import os
+
 class GuardarConfiguracion:
     def __init__(self, lugar):
-        super().__init__()
         self.lugar = lugar
         self.nombre_archivo = 'datos.json'
         self.hardcode_luces = {
@@ -55,23 +55,26 @@ class GuardarConfiguracion:
                 "canales": []
             }
         }
-    # Función para guardar datos en formato JSON en un archivo
+
     def crear_archivo(self):
         try:
             if os.path.exists(self.nombre_archivo):
                 with open(self.nombre_archivo, 'r') as archivo:
                     datos = json.load(archivo)
-                    return datos[self.lugar]
+                    return datos.get(self.lugar)
             else:
                 with open(self.nombre_archivo, 'w') as archivo:
                     json.dump(self.hardcode_luces, archivo)
-                    return self.hardcode_luces[self.lugar]
+                    return self.hardcode_luces.get(self.lugar)
         except:
-            return self.hardcode_luces[self.lugar]
+            return None
 
-    def guardar_datos_en_json(self, datos):
-        with open(self.nombre_archivo, 'r') as archivo:
-            datos = json.load(archivo)
-            datos[self.lugar] = datos
-            with open(self.nombre_archivo, 'w') as archivo:
-                json.dump(datos, archivo)
+    def guardar_datos_en_json(self, nuevos_datos):
+        try:
+            with open(self.nombre_archivo, 'r') as archivo:
+                datos = json.load(archivo)
+            datos[self.lugar] = nuevos_datos
+            with open(self.nombre_archivo, 'w') as archivoWrite:
+                json.dump(datos, archivoWrite)
+        except Exception as e:
+            print("Error al guardar datos en JSON:", e)

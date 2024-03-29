@@ -9,7 +9,7 @@ from programa_hardcode import ProgramaHardcode
 from custom_logger import CustomLogger
 
 # Version Programa
-VERSION = '2.0.3'
+VERSION = '2.0.4-1'
 
 # Crear una instancia del logger
 logger = CustomLogger()
@@ -33,6 +33,7 @@ theared_program = threading.Event()
 # Cliente de los sockets
 sio = socketio.Client(logger=True, reconnection=False)
 
+# Creamos la funcion que se ejecutara para encender las luces
 class TimedEventThread(threading.Thread):
     def __init__(self, interval, event, programa, programa_por_tiempo, request_programa=None, request_programa_por_tiempo=None):
         super().__init__()
@@ -64,6 +65,7 @@ class TimedEventThread(threading.Thread):
         self.programa_execute = nuevo_programa
 
     def changeRequestPrograma(self, nuevo_request):
+        ProgramaHardcode(lugar).guardar_luces(nuevo_request)
         self.request_programa = nuevo_request
 
     def changeRequestProgramaPorTiempo(self, nuevo_request):
@@ -92,7 +94,7 @@ def ejecutar_programa(request):
 def ejecutar_programa_por_tiempo(request):
     programa_luces.programa_por_tiempo(request)
     
-# Función para programar la ejecución del programa después de 10 segundos
+# Función para programar la ejecución del programa definitivo
 def programa_ejecucion(request):
     global theared
     theared.changeRequestPrograma(request)

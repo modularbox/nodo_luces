@@ -62,7 +62,7 @@ class GuardarConfiguracion:
             if os.path.exists(self.nombre_archivo):
                 with open(self.nombre_archivo, 'r') as archivo:
                     datos = json.load(archivo)
-                    return datos.get(self.lugar)
+                    return datos
             else:
                 with open(self.nombre_archivo, 'w') as archivo:
                     json.dump(self.hardcode_luces.get(self.lugar), archivo)

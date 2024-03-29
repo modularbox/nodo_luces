@@ -58,6 +58,7 @@ class GuardarConfiguracion:
 
     def crear_archivo(self):
         try:
+            print("Entro aqui")
             if os.path.exists(self.nombre_archivo):
                 with open(self.nombre_archivo, 'r') as archivo:
                     datos = json.load(archivo)

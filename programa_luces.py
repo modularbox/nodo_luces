@@ -1,8 +1,12 @@
 from datetime import datetime
+import time
+from typing import List
 from PyDMXControl.controllers import OpenDMXController
 from PyDMXControl.profiles.Generic import Custom
 from fixture_model import FixtureModel
 from custom_logger import CustomLogger
+from panel_programa import PanelPrograma, Horario
+from panel_programa import get_datos_local
 
 # Crear una instancia del logger
 logger = CustomLogger()
@@ -16,7 +20,9 @@ try:
     bsq_fixture_model.setup_fixture(custom_fixture)
 except Exception as e:
     print('error', e)
+
 # Guardar configuraciones anteriores
+guardar_configuracion_programa_panel = []
 guardar_configuracion_programa_por_tiempo_canales = []
 guardar_configuracion_programa_canales = []
 luces_encendidas = False
@@ -40,6 +46,18 @@ def ciclo_luces():
             encender_con_value_luz(channel[1], channel[0])
         else:
             encender_luz(channel)
+
+# Ciclo de luces por tiempo
+def ciclo_luces_programa_por_tiempo():
+    global guardar_configuracion_programa_por_tiempo_canales
+    luces = guardar_configuracion_programa_por_tiempo_canales
+    for programas in luces:
+        for channel in programas:
+            if isinstance(channel, list):
+                encender_con_value_luz(channel[1], channel[0])
+                time.sleep(3)
+            else:
+                encender_luz(channel)
 # ------------------ Aqui termina el codigo ------------------
 # ------------------ Codigo para la programacion de las luces en horas ------------------
         
@@ -54,6 +72,9 @@ def programa_por_tiempo(request):
         ejecutar_cliclo = True
     if ejecutar_cliclo:    
         ciclo_luces(canales)
+
+def programa_panel(request):
+    global guardar_configuracion_programa_por_tiempo_canales
 
 # Función que comprueba si la hora actual está dentro del rango especificado
 def verificar_hora(hora_inicio, hora_fin):
@@ -111,3 +132,38 @@ def init_luces(request):
     if encender: 
         logger.log_info("---------------------- Encender luces -------------------")
         ciclo_luces()
+
+# --------------------------------0---------Inicia la programcion del panel de modularbox para las luces -------------------------------
+
+def off_all_channels_panel(canales: list):
+    logger.log_info("Apagar todos los canales")
+    for i in canales:
+        custom_fixture.dim(0, 0, i)
+
+def ciclo_luces_panel(canales: List[int]):
+    for canal in canales:
+        if isinstance(canal, list):
+            encender_con_value_luz(canal[1], canal[0])
+        else:
+            encender_luz(canal)
+
+def funcionalidad_luces():
+    global guardar_configuracion_programa_panel
+    panel_programa = get_datos_local()
+    list_programa_luces = panel_programa.verificar_horario()
+    esta_en_horario = len(list_programa_luces) != 0
+    if(esta_en_horario):
+        for programa_luces in list_programa_luces:
+            if(guardar_configuracion_programa_panel != programa_luces.canales):
+                off_all_channels_panel(guardar_configuracion_programa_panel)
+                guardar_configuracion_programa_panel = programa_luces.canales
+                ciclo_luces_panel(programa_luces.canales)
+            time.sleep(programa_luces.tiempo)
+    else:
+        if len(guardar_configuracion_programa_panel) != 0:
+            off_all_channels_panel(guardar_configuracion_programa_panel)
+            guardar_configuracion_programa_panel = []
+
+# Iniciar el programa
+# def init_luces_panel(request):
+#     funcionalidad_luces()

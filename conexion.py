@@ -106,7 +106,7 @@ def ejecutar_programa_por_tiempo(request):
 
 # Ejecutar el programa por tiempo solo se envia el request ----------------------
 def ejecutar_programa_panel(request):
-    programa_luces.funcionalidad_luces()
+    programa_luces.funcionalidad_luces(request)
     
 # Función para programar la ejecución del programa definitivo
 def programa_ejecucion(request):
@@ -118,7 +118,7 @@ def programa_ejecucion(request):
 # Función para programar la ejecución del programa panel definitivo --------------------------------------------------
 def programa_panel(request):
     global theared
-    theared.changeRequestPrograma(request)
+    theared.changeRequestProgramaPanel(request)
     if theared.programa_execute != Programas.PROGRAMA_PANEL:
         theared.changePrograma(Programas.PROGRAMA_PANEL)
     

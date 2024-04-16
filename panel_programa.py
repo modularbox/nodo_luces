@@ -135,7 +135,10 @@ def panel_programa_from_dict(s: Any) -> PanelPrograma:
 def panel_programa_to_dict(x: PanelPrograma) -> Any:
     return to_class(PanelPrograma, x)
 
-def get_datos_local():
+def get_datos_local(request):
+    if request != {}:
+        return panel_programa_from_dict(request)
+        
     panel_programa = panel_programa_from_dict({
   "nodo": "31",
   "horarios": [

@@ -14,9 +14,8 @@ def from_int(x: Any) -> int:
     return x
 
 def from_float(x: Any) -> float:
-    assert isinstance(x, float) and not isinstance(x, bool)
-    return x
-
+    assert isinstance(x, (float, int)) and not isinstance(x, bool)
+    return float(x)
 
 def from_union(fs, x):
     for f in fs:

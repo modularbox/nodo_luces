@@ -1,4 +1,4 @@
-from typing import List, Union, Any, TypeVar, Callable, Type, cast
+from typing import List, Any, TypeVar, Callable, Type, cast
 from datetime import datetime
 
 T = TypeVar("T")
@@ -13,23 +13,18 @@ def from_int(x: Any) -> int:
     assert isinstance(x, int) and not isinstance(x, bool)
     return x
 
+
 def from_float(x: Any) -> float:
     assert isinstance(x, (float, int)) and not isinstance(x, bool)
     return float(x)
 
-def from_union(fs, x):
-    for f in fs:
-        try:
-            return f(x)
-        except:
-            pass
-    assert False
-
+def to_float(x: Any) -> float:
+    assert isinstance(x, float)
+    return x
 
 def from_str(x: Any) -> str:
     assert isinstance(x, str)
     return x
-
 
 def to_class(c: Type[T], x: Any) -> dict:
     assert isinstance(x, c)
@@ -37,24 +32,24 @@ def to_class(c: Type[T], x: Any) -> dict:
 
 
 class ProgramaLuces:
-    canales: List[Union[int, List[int]]]
+    canales: List[int]
     tiempo: float
 
-    def __init__(self, canales: List[Union[int, List[int]]], tiempo: float) -> None:
+    def __init__(self, canales: List[int], tiempo: float) -> None:
         self.canales = canales
         self.tiempo = tiempo
 
     @staticmethod
     def from_dict(obj: Any) -> 'ProgramaLuces':
         assert isinstance(obj, dict)
-        canales = from_list(lambda x: from_union([from_int, lambda x: from_list(from_int, x)], x), obj.get("canales"))
+        canales = from_list(from_int, obj.get("canales"))
         tiempo = from_float(obj.get("tiempo"))
         return ProgramaLuces(canales, tiempo)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["canales"] = from_list(lambda x: from_union([from_int, lambda x: from_list(from_int, x)], x), self.canales)
-        result["tiempo"] = from_int(self.tiempo)
+        result["canales"] = from_list(from_int, self.canales)
+        result["tiempo"] = to_float(self.tiempo)
         return result
 
 
@@ -153,16 +148,15 @@ def get_datos_local():
         {
           "canales": [
             4,
-            11
+            2,
+            10
           ],
           "tiempo": 5
         },
         {
           "canales": [
-            [
-              4,
-              2
-            ],
+            4,
+            2,
             12
           ],
           "tiempo": 5
@@ -178,23 +172,21 @@ def get_datos_local():
         {
           "canales": [
             4,
-            11
+            2,
+            10
           ],
           "tiempo": 5
         },
         {
           "canales": [
-            [
-              4,
-              2
-            ],
+            4,
+            2,
             12
           ],
           "tiempo": 5
         }
       ]
-    }
+        }
     ]
     })
-    print(panel_programa.horarios[0].hora_inicio)
     return panel_programa

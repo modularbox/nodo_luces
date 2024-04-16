@@ -148,6 +148,7 @@ def ciclo_luces_panel(canales: List[int]):
             encender_luz(canal)
 
 def funcionalidad_luces():
+    print("Funcionalidad luces")
     global guardar_configuracion_programa_panel
     panel_programa = get_datos_local()
     list_programa_luces = panel_programa.verificar_horario()

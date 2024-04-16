@@ -180,7 +180,7 @@ def main_inicio():
             break
         time.sleep(3)
     # Crea el hilo para el evento
-    theared = TimedEventThread(2, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo)
+    theared = TimedEventThread(2, theared_program, ejecutar_programa, ejecutar_programa_por_tiempo, ejecutar_programa_panel)
     # Iniciar Evento
     start_event(theared)
 

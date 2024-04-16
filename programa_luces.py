@@ -137,6 +137,7 @@ def init_luces(request):
 
 def off_all_channels_panel(canales: list):
     logger.log_info("Apagar todos los canales")
+    print(canales)
     for i in canales:
         custom_fixture.dim(0, 0, i)
 

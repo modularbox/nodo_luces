@@ -116,7 +116,7 @@ def programa_ejecucion(request):
         theared.changePrograma(Programas.PROGRAMA)
 
 # Función para programar la ejecución del programa panel definitivo --------------------------------------------------
-def programa_panel(request):
+def programa_panel_ejecucion(request):
     global theared
     theared.changeRequestProgramaPanel(request)
     if theared.programa_execute != Programas.PROGRAMA_PANEL:
@@ -148,11 +148,11 @@ def programa(request):
 
 # -------------------------------------------------- ptrrogrma de panel --------------------------------------------------
 @sio.on('programa_panel' + lugar) 
-def programa(request):
+def programa_panel(request):
     string_request = str(request)
     logger.log_info('Nueva configuracion programa panel en ejecucion')
     logger.log_warning(string_request)
-    programa_panel(request)
+    programa_panel_ejecucion(request)
 
 @sio.on('programa_por_tiempo' + lugar)
 def programa_por_tiempo(request):

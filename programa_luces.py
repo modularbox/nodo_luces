@@ -163,14 +163,14 @@ def funcionalidad_luces(request):
                 print("programa_luces")
                 print(programa_luces.canales)
                 guardar_configuracion_programa_panel = programa_luces.canales
-                off_all_channels_panel(canales_encendidos)
+                off_all_channels()
                 canales_encendidos = programa_luces.canales
                 ciclo_luces_panel(programa_luces.canales)
             time.sleep(programa_luces.tiempo)
     else:
         print("No esta en el horario")
         if len(guardar_configuracion_programa_panel) != 0:
-            off_all_channels_panel(guardar_configuracion_programa_panel)
+            off_all_channels()
             guardar_configuracion_programa_panel = []
 
 # Iniciar el programa

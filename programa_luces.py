@@ -139,6 +139,7 @@ def off_all_channels_panel(canales: list):
     logger.log_info("Apagar todos los canales")
     print(canales)
     for i in canales:
+        print(i)
         custom_fixture.dim(0, 0, i)
 
 def ciclo_luces_panel(canales: List[int]):
@@ -162,14 +163,14 @@ def funcionalidad_luces(request):
                 print("programa_luces")
                 print(programa_luces.canales)
                 guardar_configuracion_programa_panel = programa_luces.canales
-                off_all_channels()
+                off_all_channels_panel(canales_encendidos)
                 canales_encendidos = programa_luces.canales
                 ciclo_luces_panel(programa_luces.canales)
             time.sleep(programa_luces.tiempo)
     else:
         print("No esta en el horario")
         if len(guardar_configuracion_programa_panel) != 0:
-            off_all_channels()
+            off_all_channels_panel(guardar_configuracion_programa_panel)
             guardar_configuracion_programa_panel = []
 
 # Iniciar el programa

@@ -147,7 +147,8 @@ def ciclo_luces_panel(canales: List[int]):
         if isinstance(canal, list):
             encender_con_value_luz(canal[1], canal[0])
         else:
-            encender_luz(canal)
+            if canal != 0:
+                encender_luz(canal)
 
 def funcionalidad_luces(request):
     print("Funcionalidad luces")

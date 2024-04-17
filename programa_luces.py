@@ -156,13 +156,14 @@ def funcionalidad_luces(request):
     esta_en_horario = len(list_programa_luces) != 0
     if(esta_en_horario):
         print("Esta en el horario")
+        canales_encendidos = []
         for programa_luces in list_programa_luces:
             if(guardar_configuracion_programa_panel != programa_luces.canales):
                 print("programa_luces")
                 print(programa_luces.canales)
-                off_all_channels_panel(guardar_configuracion_programa_panel)
-                off_all_channels_panel(programa_luces.canales)
+                off_all_channels_panel(canales_encendidos)
                 guardar_configuracion_programa_panel = programa_luces.canales
+                canales_encendidos = programa_luces.canales
                 ciclo_luces_panel(programa_luces.canales)
             time.sleep(programa_luces.tiempo)
     else:

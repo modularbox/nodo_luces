@@ -10,13 +10,17 @@ from panel_programa import get_datos_local
 
 # Crear una instancia del logger
 logger = CustomLogger()
+custom_fixture = None
 # Cargar luces desde JSON
 # ------------------ Todo el codigo de las luces ------------------
-dmx = OpenDMXController()
-# Big square fixture model
-bsq_fixture_model = FixtureModel("DRGBWSEP")
-custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
-bsq_fixture_model.setup_fixture(custom_fixture)
+try:
+    dmx = OpenDMXController()
+    # Big square fixture model
+    bsq_fixture_model = FixtureModel("DRGBWSEP")
+    custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
+    bsq_fixture_model.setup_fixture(custom_fixture)
+except Exception as e:
+    print('error', e)
 
 # Guardar configuraciones anteriores
 guardar_configuracion_programa_panel = []

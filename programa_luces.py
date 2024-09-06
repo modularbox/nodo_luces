@@ -10,7 +10,6 @@ from panel_programa import get_datos_local
 
 # Crear una instancia del logger
 logger = CustomLogger()
-custom_fixture = None
 # Cargar luces desde JSON
 # ------------------ Todo el codigo de las luces ------------------
 try:
@@ -140,6 +139,7 @@ def off_all_channels_panel(canales: list):
     logger.log_info("Apagar todos los canales")
     print(canales)
     for i in canales:
+        print(i)
         custom_fixture.dim(0, 0, i)
 
 def ciclo_luces_panel(canales: List[int]):

@@ -40,7 +40,7 @@ class TimedEventThread(threading.Thread):
         super().__init__()
         self.interval = interval
         self.stopped = event
-        self.programa_execute = Programas.PROGRAMA_PANEL
+        self.programa_execute = Programas.PROGRAMA  
         self.programa = programa
         self.programa_por_tiempo = programa_por_tiempo
         self.programa_panel = programa_panel

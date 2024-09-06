@@ -149,7 +149,7 @@ def programa(request):
     string_request = str(request)
     logger.log_info('Nueva configuracion programa panel en ejecucion')
     logger.log_warning(string_request)
-    programa_panel_ejecucion(request)
+    programa_ejecucion(request)
 
 # -------------------------------------------------- ptrrogrma de panel --------------------------------------------------
 @sio.on('programa_panel' + lugar) 

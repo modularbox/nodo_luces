@@ -12,14 +12,11 @@ from panel_programa import get_datos_local
 logger = CustomLogger()
 # Cargar luces desde JSON
 # ------------------ Todo el codigo de las luces ------------------
-try:
-    dmx = OpenDMXController()
-    # Big square fixture model
-    bsq_fixture_model = FixtureModel("DRGBWSEP")
-    custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
-    bsq_fixture_model.setup_fixture(custom_fixture)
-except Exception as e:
-    print('error', e)
+dmx = OpenDMXController()
+# Big square fixture model
+bsq_fixture_model = FixtureModel("DRGBWSEP")
+custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
+bsq_fixture_model.setup_fixture(custom_fixture)
 
 # Guardar configuraciones anteriores
 guardar_configuracion_programa_panel = []
@@ -139,7 +136,6 @@ def off_all_channels_panel(canales: list):
     logger.log_info("Apagar todos los canales")
     print(canales)
     for i in canales:
-        print(i)
         custom_fixture.dim(0, 0, i)
 
 def ciclo_luces_panel(canales: List[int]):

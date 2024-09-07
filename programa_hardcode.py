@@ -8,6 +8,9 @@ class ProgramaHardcode():
     def guardar_luces(self, request):
         GuardarConfiguracion(self.lugar).guardar_datos_en_json(request)
 
+    def guardar_luces_panel(self, request):
+        GuardarConfiguracion(self.lugar).guardar_datos_en_json(request)
+
     def get_luces_lugar(self):
         # Crear una instancia del logger
         logger = CustomLogger()

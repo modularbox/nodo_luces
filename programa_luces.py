@@ -1,4 +1,5 @@
 from datetime import datetime
+import time
 from PyDMXControl.controllers import OpenDMXController
 from PyDMXControl.profiles.Generic import Custom
 from fixture_model import FixtureModel
@@ -25,13 +26,16 @@ luces_encendidas = False
 def encender_luz(channel):
     # print("Se encendieron las luces")
     custom_fixture.dim(255, 0, channel - 1)
+    time.sleep(0.01)  # Agregar un pequeño delay de 10 ms
 def encender_con_value_luz(value, channel):
     # print("Se encendieron las luces")
     custom_fixture.dim(value, 0, channel - 1)
+    time.sleep(0.01)  # Agregar un pequeño delay de 10 ms
 def off_all_channels():
     logger.log_info("Apagar todos los canales")
     for i in range(500):
         custom_fixture.dim(0, 0, i)
+        time.sleep(0.01)  # Agregar un pequeño delay de 10 ms
 def ciclo_luces():
     global guardar_configuracion_programa_canales
     luces = guardar_configuracion_programa_canales

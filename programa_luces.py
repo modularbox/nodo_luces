@@ -26,10 +26,12 @@ luces_encendidas = False
 def encender_luz(channel):
     # print("Se encendieron las luces")
     custom_fixture.dim(255, 0, channel - 1)
+    print("Encender luz ", channel)
     time.sleep(0.01)  # Agregar un pequeño delay de 10 ms
 def encender_con_value_luz(value, channel):
     # print("Se encendieron las luces")
     custom_fixture.dim(value, 0, channel - 1)
+    print("Encender con value luz ", channel);
     time.sleep(0.01)  # Agregar un pequeño delay de 10 ms
 def off_all_channels():
     logger.log_info("Apagar todos los canales")

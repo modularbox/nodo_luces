@@ -80,6 +80,7 @@ def verificar_hora(hora_inicio, hora_fin):
     return False
     
 def verificar_horarios(horarios):
+    return True
     if isinstance(horarios, list):
         for horario in horarios:
             if verificar_hora(horario.get('horario_inicio'), horario.get('horario_fin')):

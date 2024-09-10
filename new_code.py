@@ -16,7 +16,9 @@ def turn_on_channels(fixture, channels):
     print("Encendiendo canales...")
     # Asegurarse de que cada valor en 'values' sea un entero entre 0 y 255
     values = [255 if (i + 1) in channels else 0 for i in range(140)]
+    print(values)
     fixture.set_channels(*values)
+    print(*values)
     dmx._transmit(values, 1)  # Transmitir los datos
     print("Canales encendidos.")
 

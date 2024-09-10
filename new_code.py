@@ -20,7 +20,7 @@ dmx = OpenDMXController()
 # Añadir un nuevo fixture Dimmer a nuestro controlador
 # y guardarlo en una variable para que podamos acceder a él.
 # Le damos un nombre para que sea más fácil identificarlo en las opciones de control de depuración.
-fixture = dmx.add_fixture(Dimmer, name="Mi_Primer_Dimmer", start_channel=1, channels=150)
+fixture = dmx.add_fixture(Custom, name="Mi_Primer_Dimmer", start_channel=1, channels=150)
 
 # Ahora, enciende los canales especificados en el array
 # Se asume que quieres encender todos los canales al valor máximo (255)
@@ -31,4 +31,4 @@ fixture.set_channels(*[255 if channel in dmxChannels else None for channel in ra
 
 # O si el número de canales es menor a 512, solo usa los canales necesarios
 # Ajuste de ejemplo en base al número de canales necesarios
-fixture.set_channels(*[255 if i in dmxChannels else None for i in range(1, max(dmxChannels) + 1)])
+# fixture.set_channels(*[255 if i in dmxChannels else None for i in range(1, max(dmxChannels) + 1)])

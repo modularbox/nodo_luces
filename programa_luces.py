@@ -31,7 +31,7 @@ def encender_luz(channel):
 def encender_con_value_luz(value, channel):
     # print("Se encendieron las luces")
     custom_fixture.dim(value, 0, channel - 1)
-    print("Encender con value luz ", channel);
+    print("Encender con value luz ", channel)
     time.sleep(0.01)  # Agregar un pequeño delay de 10 ms
 def off_all_channels():
     logger.log_info("Apagar todos los canales")
@@ -82,10 +82,10 @@ def verificar_hora(hora_inicio, hora_fin):
     return False
     
 def verificar_horarios(horarios):
-    return True
     if isinstance(horarios, list):
         for horario in horarios:
             if verificar_hora(horario.get('horario_inicio'), horario.get('horario_fin')):
+                print("Esta en horario")
                 return True
         return False
 # ------------------ Termina la programacion de las luces en horas ------------------

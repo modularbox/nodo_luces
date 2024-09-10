@@ -93,6 +93,9 @@ def verificar_hora(hora_inicio, hora_fin):
     fecha_inicio = fecha_hora_inicio.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
     fecha_fin = fecha_hora_fin.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
     
+    print(fecha_inicio <= fecha_actual <= fecha_fin)
+    print(f"fecha_inicio: {fecha_inicio}, fecha_actual: {fecha_actual}, fecha_fin: {fecha_fin}")
+    print(f"¿fecha_actual está entre fecha_inicio y fecha_fin?: {fecha_inicio <= fecha_actual <= fecha_fin}")
     # Esto es para que no se apage un minuto y se vuelva a encender
     if fecha_actual.hour == 23 and fecha_actual.minute == 59:
         return True

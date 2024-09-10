@@ -19,7 +19,7 @@ dmx = OpenDMXController()
 # Añadir un nuevo fixture Dimmer a nuestro controlador
 # y guardarlo en una variable para que podamos acceder a él.
 # Le damos un nombre para que sea más fácil identificarlo en las opciones de control de depuración.
-fixture = dmx.add_fixture(Dimmer, name="Mi_Primer_Dimmer")
+fixture = dmx.add_fixture(Dimmer, name="Mi_Primer_Dimmer", start_channel=1, channels=150)
 
 # A continuación, atenuar la intensidad del fixture desde su valor inicial de cero
 # hasta el máximo, que está representado como 255 en DMX.

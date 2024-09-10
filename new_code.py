@@ -7,6 +7,7 @@ from PyDMXControl.controllers import OpenDMXController
 # Importar el perfil de fixture que utilizaremos,
 # en este ejemplo, el simple Dimmer.
 from PyDMXControl.profiles.Generic import Dimmer
+from PyDMXControl.profiles.Generic import Custom
 
 # What DMX channels we want to listen to
 dmxChannels = [1, 2, 11, 12, 21, 24, 27, 30, 33, 36, 39, 42, 51, 54, 57, 60, 63, 66, 69, 72, 91, 92, 101, 102]
@@ -19,7 +20,7 @@ dmx = OpenDMXController()
 # Añadir un nuevo fixture Dimmer a nuestro controlador
 # y guardarlo en una variable para que podamos acceder a él.
 # Le damos un nombre para que sea más fácil identificarlo en las opciones de control de depuración.
-fixture = dmx.add_fixture(name="Mi_Primer_Dimmer", start_channel=1, channels=150)
+fixture = dmx.add_fixture(Custom, name="Mi_Primer_Dimmer", start_channel=1, channels=150)
 
 # Ahora, enciende los canales especificados en el array
 # Se asume que quieres encender todos los canales al valor máximo (255)

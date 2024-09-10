@@ -15,7 +15,7 @@ try:
     # Añadir un nuevo fixture Dimmer a nuestro controlador
     fixture = dmx.add_fixture(Custom, name="Mi_Primer_Dimmer", start_channel=1, channels=150)
 except Exception as e:
-    print('error', e)
+    logger.log_info('error', e)
 
 # Guardar configuraciones anteriores
 guardar_configuracion_programa_por_tiempo_canales = []
@@ -46,20 +46,20 @@ def assign_values_to_channels(color_array):
 
 # Función para encender los canales
 def turn_on_channels(channels):
-    print("Encendiendo canales...")
+    logger.log_info("Encendiendo canales...")
     values = assign_values_to_channels(channels)
     fixture.set_channels(*values)
     dmx._transmit(values, 1)  # Transmitir los datos
-    print("Canales encendidos.")
+    logger.log_info("Canales encendidos.")
 
 # Función para apagar los canales
 def turn_off_channels(channels):
-    print("Apagando canales...")
+    logger.log_info("Apagando canales...")
     # Asegurarse de que cada valor en 'values' sea un entero entre 0 y 255
     values = [0 if (i + 1) in channels else 0 for i in range(140)]
     fixture.set_channels(*values)
     dmx._transmit(values, 1)  # Transmitir los datos
-    print("Canales apagados.")
+    logger.log_info("Canales apagados.")
 
 def ciclo_luces():
     global guardar_configuracion_programa_canales
@@ -93,9 +93,9 @@ def verificar_hora(hora_inicio, hora_fin):
     fecha_inicio = fecha_hora_inicio.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
     fecha_fin = fecha_hora_fin.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
     
-    print(fecha_inicio <= fecha_actual <= fecha_fin)
-    print(f"fecha_inicio: {fecha_inicio}, fecha_actual: {fecha_actual}, fecha_fin: {fecha_fin}")
-    print(f"¿fecha_actual está entre fecha_inicio y fecha_fin?: {fecha_inicio <= fecha_actual <= fecha_fin}")
+    logger.log_info(fecha_inicio <= fecha_actual <= fecha_fin)
+    logger.log_info(f"fecha_inicio: {fecha_inicio}, fecha_actual: {fecha_actual}, fecha_fin: {fecha_fin}")
+    logger.log_info(f"¿fecha_actual está entre fecha_inicio y fecha_fin?: {fecha_inicio <= fecha_actual <= fecha_fin}")
     # Esto es para que no se apage un minuto y se vuelva a encender
     if fecha_actual.hour == 23 and fecha_actual.minute == 59:
         return True
@@ -107,7 +107,7 @@ def verificar_horarios(horarios):
     if isinstance(horarios, list):
         for horario in horarios:
             if verificar_hora(horario.get('horario_inicio'), horario.get('horario_fin')):
-                print("Esta en horario")
+                logger.log_info("Esta en horario")
                 return True
         return False
 # ------------------ Termina la programacion de las luces en horas ------------------

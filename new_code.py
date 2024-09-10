@@ -29,7 +29,7 @@ fixture = dmx.add_fixture(Dimmer, name="Mi_Primer_Dimmer", start_channel=1, chan
 # Funciones para el control de los canales
 def encender_luz(channel):
     # print("Se encendieron las luces")
-    fixture.dim(255, 1000, channel - 1)
+    fixture.dim(255, 1000, channel)
     print("Encender luz ", channel)
 
 for channel in dmxChannels:

@@ -18,8 +18,6 @@ fixture = dmx.add_fixture(Custom, name="Mi_Primer_Dimmer", start_channel=1, chan
 def assign_values_to_channels(color_array):
     """
     Asigna valores a los canales DMX basados en el array de colores proporcionado.
-
-    :param channels: Lista de valores de DMX (0-255) para los 512 canales.
     :param color_array: Array que define los colores y los canales.
     :return: Lista de valores para los canales DMX.
     """
@@ -42,12 +40,8 @@ def assign_values_to_channels(color_array):
 # Función para encender los canales
 def turn_on_channels(fixture, channels):
     print("Encendiendo canales...")
-    # Asegurarse de que cada valor en 'values' sea un entero entre 0 y 255
-    # values = [255 if (i + 1) in channels else 0 for i in range(140)]
     values = assign_values_to_channels(dmxChannels)
-    print(values)
     fixture.set_channels(*values)
-    print(*values)
     dmx._transmit(values, 1)  # Transmitir los datos
     print("Canales encendidos.")
 

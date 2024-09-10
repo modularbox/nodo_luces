@@ -15,7 +15,8 @@ fixture = dmx.add_fixture(Custom, name="Mi_Primer_Dimmer", start_channel=1, chan
 def turn_on_channels(fixture, channels):
     print("Encendiendo canales...")
     # Asegurarse de que cada valor en 'values' sea un entero entre 0 y 255
-    values = [255 if (i + 1) in channels else 0 for i in range(140)]
+    # values = [255 if (i + 1) in channels else 0 for i in range(140)]
+    values = [255, 170, 0, 255]
     print(values)
     fixture.set_channels(*values)
     print(*values)

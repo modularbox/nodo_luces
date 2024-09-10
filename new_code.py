@@ -2,6 +2,8 @@ import time
 from PyDMXControl.controllers import OpenDMXController
 from PyDMXControl.profiles.Generic import Custom
 
+from PyDMXControl.profiles.defaults import Fixture
+
 # What DMX channels we want to listen to
 dmxChannels = [1, 2, 11, 12, 21, 24, 27, 30, 33, 36, 39, 42, 51, 54, 57, 60, 63, 66, 69, 72, 91, 92, 101, 102]
 
@@ -9,7 +11,7 @@ dmxChannels = [1, 2, 11, 12, 21, 24, 27, 30, 33, 36, 39, 42, 51, 54, 57, 60, 63,
 dmx = OpenDMXController()
 
 # Añadir un nuevo fixture Dimmer a nuestro controlador
-fixture = dmx.add_fixture(Custom, name="Mi_Primer_Dimmer", start_channel=1, channels=150)
+fixture = Fixture( name="Mi_Primer_Dimmer", start_channel=1)
 
 # Función para encender los canales
 def turn_on_channels(fixture, channels):

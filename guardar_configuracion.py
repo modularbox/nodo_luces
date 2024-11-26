@@ -14,13 +14,11 @@ purple = [170, 0, 255]
 apagar = [0, 0, 0]
 white = [255, 255, 255]
 
-
-
 # Aqui viene la configuracion de luces de saucedilla
 # De la iglesia y del ayuntamiento Esta es en orange
 class GuardarConfiguracion:
     def __init__(self, lugar):
-        logger.log_info("La configuracion esta en color orange")
+        logger.log_info("La configuracion esta en color white cruzbendita")
         programCruzBendita = self.cruzbendita(white)
         self.lugar = lugar
         self.nombre_archivo = 'datos_guardados.json'

@@ -20,6 +20,7 @@ class GuardarConfiguracion:
     def __init__(self, lugar):
         logger.log_info("La configuracion esta en color white cruzbendita")
         programCruzBendita = self.cruzbendita(white)
+        logger.log_info(programCruzBendita)
         self.lugar = lugar
         self.nombre_archivo = 'datos_guardados.json'
         self.hardcode_luces = {
@@ -33,10 +34,32 @@ class GuardarConfiguracion:
             },
             
         }
-    def get_off_on_rgb(self, rgb, cont):
-        # Placeholder function: replace with actual implementation.
-        # This function needs to be defined according to the JavaScript version.
-        return [rgb, cont]
+    def get_off_on_rgb(self, rgb, canal):
+        red = rgb[0]
+        green = rgb[1]
+        blue = rgb[2]
+        new_list = []
+        new_canal = canal + 1
+        
+        if red == 255:
+            new_list.append(new_canal)
+        elif red != 0:
+            new_list.append([new_canal, red])
+        
+        new_canal += 1
+        if green == 255:
+            new_list.append(new_canal)
+        elif green != 0:
+            new_list.append([new_canal, green])
+        
+        new_canal += 1
+        if blue == 255:
+            new_list.append(new_canal)
+        elif blue != 0:
+            new_list.append([new_canal, blue])
+        
+        return new_list
+
 
     def desaguadero(self, rgb):
         cont = 4
@@ -101,3 +124,8 @@ class GuardarConfiguracion:
                 json.dump(nuevos_datos, archivoWrite)
         except Exception as e:
             print("Error al guardar datos en JSON:", e)
+
+
+
+p = GuardarConfiguracion("jhsdgkj")
+

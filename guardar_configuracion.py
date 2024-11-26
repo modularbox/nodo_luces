@@ -18,9 +18,9 @@ white = [255, 255, 255]
 # De la iglesia y del ayuntamiento Esta es en orange
 class GuardarConfiguracion:
     def __init__(self, lugar):
-        logger.log_info("La configuracion esta en color white cruzbendita")
-        programCruzBendita = self.cruzbendita(white)
-        logger.log_info(programCruzBendita)
+        logger.log_info("La configuracion esta en color white ermita 1")
+        channels = self.ermita(white)
+        logger.log_info(channels)
         self.lugar = lugar
         self.nombre_archivo = 'datos_guardados.json'
         self.hardcode_luces = {
@@ -30,10 +30,11 @@ class GuardarConfiguracion:
                     {"horario_inicio": "00:00:00", "horario_fin": "05:00:00"}
                 ],
                 "modo": "automatico",
-                "canales": programCruzBendita
+                "canales": channels
             },
             
         }
+        
     def get_off_on_rgb(self, rgb, canal):
         red = rgb[0]
         green = rgb[1]

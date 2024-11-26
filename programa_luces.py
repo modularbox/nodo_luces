@@ -1,5 +1,4 @@
 from datetime import datetime
-import time
 from PyDMXControl.controllers import OpenDMXController
 from PyDMXControl.profiles.Generic import Custom
 from fixture_model import FixtureModel
@@ -12,59 +11,35 @@ logger = CustomLogger()
 try:
     dmx = OpenDMXController()
     # Big square fixture model
-    # Añadir un nuevo fixture Dimmer a nuestro controlador
-    fixture = dmx.add_fixture(Custom, name="Mi_Primer_Dimmer", start_channel=1, channels=150)
+    bsq_fixture_model = FixtureModel("DRGBWSEP")
+    custom_fixture = dmx.add_fixture(Custom,name="CustomFixture", start_channel=1, channels=500)
+    bsq_fixture_model.setup_fixture(custom_fixture)
 except Exception as e:
-    logger.log_info('error', e)
-
+    print('error', e)
 # Guardar configuraciones anteriores
 guardar_configuracion_programa_por_tiempo_canales = []
 guardar_configuracion_programa_canales = []
 luces_encendidas = False
 
-def assign_values_to_channels(color_array):
-    """
-    Asigna valores a los canales DMX basados en el array de colores proporcionado.
-    :param color_array: Array que define los colores y los canales.
-    :return: Lista de valores para los canales DMX.
-    """
-    # Inicializar el array de valores de DMX con 0
-    values = [0] * 104
-
-    for item in color_array:
-        if isinstance(item, list):
-            channel = item[0] - 1  # Ajustar índice basado en 1
-            color_value = item[1]
-            if 0 <= channel < len(values):
-                values[channel] = color_value
-        else:
-            channel = item - 1  # Ajustar índice basado en 1
-            if 0 <= channel < len(values):
-                values[channel] = 255
-
-    return values
-
-# Función para encender los canales
-def turn_on_channels(channels):
-    logger.log_info("Encendiendo canales...")
-    values = assign_values_to_channels(channels)
-    fixture.set_channels(*values)
-    dmx._transmit(values, 1)  # Transmitir los datos
-    logger.log_info("Canales encendidos.")
-
-# Función para apagar los canales
-def turn_off_channels(channels):
-    logger.log_info("Apagando canales...")
-    # Asegurarse de que cada valor en 'values' sea un entero entre 0 y 255
-    values = [0 if (i + 1) in channels else 0 for i in range(140)]
-    fixture.set_channels(*values)
-    dmx._transmit(values, 1)  # Transmitir los datos
-    logger.log_info("Canales apagados.")
-
+# Funciones para el control de los canales
+def encender_luz(channel):
+    # print("Se encendieron las luces")
+    custom_fixture.dim(255, 0, channel - 1)
+def encender_con_value_luz(value, channel):
+    # print("Se encendieron las luces")
+    custom_fixture.dim(value, 0, channel - 1)
+def off_all_channels():
+    logger.log_info("Apagar todos los canales")
+    for i in range(500):
+        custom_fixture.dim(0, 0, i)
 def ciclo_luces():
     global guardar_configuracion_programa_canales
-    canales = guardar_configuracion_programa_canales
-    turn_on_channels(canales)
+    luces = guardar_configuracion_programa_canales
+    for channel in luces:
+        if isinstance(channel, list):
+            encender_con_value_luz(channel[1], channel[0])
+        else:
+            encender_luz(channel)
 # ------------------ Aqui termina el codigo ------------------
 # ------------------ Codigo para la programacion de las luces en horas ------------------
         
@@ -123,11 +98,11 @@ def get_light_state_from_api(data):
         if luces_encendidas:
             guardar_configuracion_programa_canales = []
             luces_encendidas = False
-            turn_off_channels(canales)
+            off_all_channels()
     if luces_encendidas:
         # Guardamos la configuracion anterior, para que los datos no se esten seteando una y otra vez
         if guardar_configuracion_programa_canales != canales:
-            turn_off_channels(canales)
+            off_all_channels()
             guardar_configuracion_programa_canales = canales
             # Guardar las luces
             return True

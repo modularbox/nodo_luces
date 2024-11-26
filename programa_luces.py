@@ -89,6 +89,9 @@ def verificar_hora(hora_inicio, hora_fin):
     fecha_inicio = fecha_hora_inicio.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
     fecha_fin = fecha_hora_fin.replace(year=fecha_actual.year, month=fecha_actual.month, day=fecha_actual.day)
     
+    logger.log_info(fecha_inicio <= fecha_actual <= fecha_fin)
+    logger.log_info(f"fecha_inicio: {fecha_inicio}, fecha_actual: {fecha_actual}, fecha_fin: {fecha_fin}")
+    logger.log_info(f"¿fecha_actual está entre fecha_inicio y fecha_fin?: {fecha_inicio <= fecha_actual <= fecha_fin}")
     # Esto es para que no se apage un minuto y se vuelva a encender
     if fecha_actual.hour == 23 and fecha_actual.minute == 59:
         return True
@@ -101,6 +104,7 @@ def verificar_horarios(horarios):
     if isinstance(horarios, list):
         for horario in horarios:
             if verificar_hora(horario.get('horario_inicio'), horario.get('horario_fin')):
+                logger.log_info("Esta en horario")
                 return True
         return False
 # ------------------ Termina la programacion de las luces en horas ------------------
@@ -129,6 +133,8 @@ def get_light_state_from_api(data):
     
 # Iniciar el programa
 def init_luces(request):
+    logger.log_info("LLega a iniciar el programa")
+    logger.log_info(f"Request: {request}")
     encender = get_light_state_from_api(request)
     if encender: 
         logger.log_info("---------------------- Encender luces -------------------")

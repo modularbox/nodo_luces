@@ -18,13 +18,14 @@ white = [255, 255, 255]
 # De la iglesia y del ayuntamiento Esta es en orange
 class GuardarConfiguracion:
     def __init__(self, lugar):
-        logger.log_info("La configuracion esta en color white ermita 1")
-        channels = self.ermita(white)
+        logger.log_info("La configuracion esta en color white cruz_bendita 1")
+        # channels = self.ermita(white)
+        channels = self.cruz_bendita(white)
         logger.log_info(channels)
         self.lugar = lugar
         self.nombre_archivo = 'datos_guardados.json'
         self.hardcode_luces = {
-            "ermita": {
+            "cruz_bendita": {
                 "horarios": [
                     {"horario_inicio": "18:00:00", "horario_fin": "23:59:00"},
                     {"horario_inicio": "00:00:00", "horario_fin": "05:00:00"}
@@ -78,7 +79,21 @@ class GuardarConfiguracion:
             cont += 10
         return new_list
 
-    def cruzbendita(self, rgb):
+    def cruz_bendita(self, rgb):
+        cont = 1
+        new_list = []
+        for _ in range(5):
+            new_list.append(cont)
+            new_list.extend(self.get_off_on_rgb(rgb, cont))
+            cont += 8
+        
+        cont = 40
+        for _ in range(4):
+            new_list.extend(self.get_off_on_rgb(rgb, cont))
+            cont += 4
+        return new_list
+    
+    def campanario(self, rgb):
         return self.campanarioluces(rgb) + self.espiritusanto(rgb)
 
     def campanarioluces(self, rgb):

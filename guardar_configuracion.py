@@ -55,18 +55,7 @@ class GuardarConfiguracion:
         return new_list
 
     def cruzbendita(self, rgb):
-        cont = 1
-        new_list = []
-        for _ in range(5):
-            new_list.append(cont)
-            new_list.extend(self.get_off_on_rgb(rgb, cont))
-            cont += 8
-        
-        cont = 40
-        for _ in range(4):
-            new_list.extend(self.get_off_on_rgb(rgb, cont))
-            cont += 4
-        return new_list
+        return self.campanarioluces(rgb) + self.espiritusanto(rgb)
 
     def campanarioluces(self, rgb):
         cont = 0

@@ -1,6 +1,6 @@
 import json
 import os
-
+inicioProgram = False
 class GuardarConfiguracion:
     def __init__(self, lugar):
         self.lugar = lugar
@@ -59,14 +59,17 @@ class GuardarConfiguracion:
     def crear_archivo(self):
         try:
             print("Entro aqui")
-            if os.path.exists(self.nombre_archivo):
-                with open(self.nombre_archivo, 'r') as archivo:
-                    datos = json.load(archivo)
-                    return datos
+            if inicioProgram:
+                if os.path.exists(self.nombre_archivo):
+                    with open(self.nombre_archivo, 'r') as archivo:
+                        datos = json.load(archivo)
+                        return datos
+                else:
+                    with open(self.nombre_archivo, 'w') as archivo:
+                        json.dump(self.hardcode_luces.get(self.lugar), archivo)
+                        return self.hardcode_luces.get(self.lugar)
             else:
-                with open(self.nombre_archivo, 'w') as archivo:
-                    json.dump(self.hardcode_luces.get(self.lugar), archivo)
-                    return self.hardcode_luces.get(self.lugar)
+                return self.hardcode_luces.get(self.lugar)
         except:
             return None
 

@@ -136,6 +136,8 @@ def get_light_state_from_api(data):
     
 # Iniciar el programa
 def init_luces(request):
+    logger.log_info("LLega a iniciar el programa")
+    logger.log_info(f"Request: {request}")
     encender = get_light_state_from_api(request)
     if encender: 
         logger.log_info("---------------------- Encender luces -------------------")

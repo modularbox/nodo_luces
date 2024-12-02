@@ -19,12 +19,12 @@ class GuardarConfiguracion:
     def __init__(self, lugar):
         logger.log_info("La configuracion esta en color white cruzbendita 1")
         # channels = self.ermita(white)
-        channels = self.cruz_bendita(white)
+        channels = self.desaguadero(white)
         logger.log_info(channels)
         self.lugar = lugar
         self.nombre_archivo = 'datos_guardados.json'
         self.hardcode_luces = {
-            "cruz_bendita": {
+            "desaguadero": {
                 "horarios": [
                     {"horario_inicio": "12:00:00", "horario_fin": "23:59:00"},
                     {"horario_inicio": "00:00:00", "horario_fin": "05:00:00"}

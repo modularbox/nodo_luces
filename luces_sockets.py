@@ -12,6 +12,8 @@ from custom_logger import CustomLogger
 VERSION = '2.0.4-10'
 URL_SOCKET = "http://192.168.1.204:3005" 
 
+print(URL_SOCKET)
+
 # Crear una instancia del logger
 logger = CustomLogger()
 

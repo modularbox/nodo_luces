@@ -27,7 +27,7 @@ class GuardarConfiguracion:
         self.hardcode_luces = {
             "campanario": {
                 "horarios": [
-                    {"horario_inicio": "18:00:00", "horario_fin": "23:59:00"},
+                    {"horario_inicio": "12:00:00", "horario_fin": "23:59:00"},
                     {"horario_inicio": "00:00:00", "horario_fin": "05:00:00"}
                 ],
                 "modo": "automatico",

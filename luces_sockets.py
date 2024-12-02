@@ -51,7 +51,7 @@ class TimedEventThread(threading.Thread):
             # Iniciar los sockets
             if not sio.connected:
                 try:
-                    sio.connect('http://apiluces.modularbox.com:3005')
+                    sio.connect(URL_SOCKET)
                     logger.log_info("Conexión exitosa a los sockets.")
                     sio.sleep(2)
                 except socketio.exceptions.ConnectionError:

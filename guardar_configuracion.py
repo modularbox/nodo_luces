@@ -19,7 +19,7 @@ class GuardarConfiguracion:
     def __init__(self, lugar):
         logger.log_info("La configuracion esta en color white cruzbendita 1")
         # channels = self.ermita(white)
-        channels = self.desaguadero(white)
+        channels = self.desaguadero(blue)
         logger.log_info(channels)
         self.lugar = lugar
         self.nombre_archivo = 'datos_guardados.json'

@@ -10,6 +10,7 @@ from custom_logger import CustomLogger
 
 # Version Programa
 VERSION = '2.0.4-10'
+URL_SOCKET = "http://192.168.1.204:3005" 
 
 # Crear una instancia del logger
 logger = CustomLogger()

@@ -24,7 +24,7 @@ class GuardarConfiguracion:
         self.lugar = lugar
         self.nombre_archivo = 'datos_guardados.json'
         self.hardcode_luces = {
-            "campanario": {
+            "cruz_bendita": {
                 "horarios": [
                     {"horario_inicio": "12:00:00", "horario_fin": "23:59:00"},
                     {"horario_inicio": "00:00:00", "horario_fin": "05:00:00"}

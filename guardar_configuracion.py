@@ -31,8 +31,7 @@ class GuardarConfiguracion:
                 ],
                 "modo": "automatico",
                 "canales": channels
-            },
-            
+            }
         }
 
     def get_off_on_rgb(self, rgb, canal):

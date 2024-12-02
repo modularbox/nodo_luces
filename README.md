@@ -17,7 +17,7 @@ echo "[Unit]
 Description=Iniciar luces
 
 [Service]
-ExecStart=/usr/bin/python3 /nodo_luces/luces_sockets.py lugar
+ExecStart=/usr/bin/python3 /root/nodo_luces/luces_sockets.py lugar
 Restart=always
 StandardOutput=journal
 StandardError=journal

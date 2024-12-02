@@ -142,6 +142,3 @@ class GuardarConfiguracion:
             print("Error al guardar datos en JSON:", e)
 
 
-
-p = GuardarConfiguracion("jhsdgkj")
-

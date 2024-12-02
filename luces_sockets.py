@@ -68,7 +68,7 @@ class TimedEventThread(threading.Thread):
         self.programa_execute = nuevo_programa
 
     def changeRequestPrograma(self, nuevo_request):
-        ProgramaHardcode(lugar).guardar_luces(nuevo_request)
+        # ProgramaHardcode(lugar).guardar_luces(nuevo_request)
         self.request_programa = nuevo_request
 
     def changeRequestProgramaPorTiempo(self, nuevo_request):
